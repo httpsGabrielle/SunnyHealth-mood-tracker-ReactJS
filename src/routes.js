@@ -2,14 +2,29 @@ import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
 
 // paginas
-import LoginPage from './pages/auth/LoginPage';
+import SignIn from './pages/auth/form/SignIn';
+import SignUp from './pages/auth/form/SignUp';
+import BreathRoom from './pages/sensorial/BreathRoom';
+import Layout from './layout/Layout';
+
 // ----------------------------------------------------------------------
 
 export default function Router() {
     const routes = useRoutes([
       {
         path: 'login',
-        element: <LoginPage />,
+        element: <SignIn />,
+      }, 
+      {
+        path: 'register',
+        element: <SignUp />,
+      },
+      {
+        path: '/',
+        element: <Layout/>,
+        children:[
+          {element: <BreathRoom/>, index: true}
+        ]
       }
     ]);
   
