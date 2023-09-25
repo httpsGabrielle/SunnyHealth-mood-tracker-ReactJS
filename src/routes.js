@@ -4,7 +4,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 // paginas
 import SignIn from './pages/auth/form/SignIn';
 import SignUp from './pages/auth/form/SignUp';
-import BreathRoom from './pages/sensorial/BreathRoom';
+import BreathRoom from './pages/sensorial/breath-room/BreathRoom';
 import Layout from './layout/Layout';
 
 // ----------------------------------------------------------------------

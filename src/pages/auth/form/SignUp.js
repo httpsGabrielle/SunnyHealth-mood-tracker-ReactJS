@@ -11,6 +11,7 @@ import { LoadingButton } from '@mui/lab';
 // 
 import LoginPage from '..';
 import IconProvider from '../../../components/assets/icon/IconProvider';
+import palette from '../../../theme/design/palette';
 
 //----------------------------------------------------------------
 
@@ -59,7 +60,13 @@ export default function SignUp(req, res, next) {
 
             <Typography sx={{ py: 1, mb: 3}}>
                 Já tem uma conta? {''}
-                <Link variant="link" to='/login'>Entrar</Link>
+                <Link 
+                    variant="link" 
+                    to='/login'
+                    style={{ textDecoration: 'none', color: palette.primary.light }} // Remova a decoração de link
+                >
+                    Entrar
+                </Link>
             </Typography>
 
             <Grid 

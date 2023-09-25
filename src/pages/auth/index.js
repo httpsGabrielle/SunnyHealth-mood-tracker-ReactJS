@@ -1,7 +1,7 @@
 // mui
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 //
-
+import art from '../../components/assets/illustration/auth-art.png'
 //----------------------------------------------------------------
 
 export default function LoginPage({children}){
@@ -16,7 +16,23 @@ export default function LoginPage({children}){
                 }}
                 spacing={0}
             >
-                <Grid xs item sx={{backgroundColor: '#F2EAE8', height: '100%'}} fullWidth>
+                <Grid 
+                    xs 
+                    item 
+                    sx={{
+                        backgroundColor: '#D2D3F3', 
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'column'
+                    }} 
+                    fullWidth
+                >
+                    <img src={art}/>
+                    <Typography>
+                        Faça a sua saúde mental ser sua prioridade.
+                    </Typography>
                 </Grid>
 
                 <Grid xs={6} lg={3.5} item sx={{p:10}}>

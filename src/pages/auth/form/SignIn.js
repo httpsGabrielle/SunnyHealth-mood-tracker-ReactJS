@@ -11,7 +11,7 @@ import { LoadingButton } from '@mui/lab';
 // 
 import LoginPage from '..';
 import IconProvider from '../../../components/assets/icon/IconProvider';
-
+import palette from '../../../theme/design/palette';
 //----------------------------------------------------------------
 
 export default function SignIn() {
@@ -54,7 +54,13 @@ export default function SignIn() {
 
             <Typography sx={{ py: 1, mb: 3}} required>
                 Ainda não tem uma conta? {''}
-                <Link variant="link" to='/register'>Registre-se</Link>
+                <Link 
+                    variant="link" 
+                    to='/register'
+                    style={{ textDecoration: 'none', color: palette.primary.light }} // Remova a decoração de link
+                >
+                    Registre-se
+                </Link>
             </Typography>
 
             <TextField 
