@@ -6,7 +6,7 @@ import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } 
 //
 import palette from './design/palette';
 import typography from './design/typography';
-import componentsOverride from './custom-mui/index';
+import CustomMui from './custom-mui/index';
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ export default function ThemeProvider({ children }) {
   );
 
   const theme = createTheme(themeOptions);
-  theme.components = componentsOverride(theme);
+  theme.components = CustomMui(theme);
 
   return (
     <StyledEngineProvider injectFirst>

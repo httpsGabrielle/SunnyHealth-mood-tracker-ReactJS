@@ -34,8 +34,8 @@
 }
 
 .animated{
-  width: 400px;
-  height: 400px;
+  width: 200px;
+  height: 200px;
   opacity: 0.1;
   animation: animacao-bola 6s infinite alternate; /* Define a animação e faz com que ela se repita infinitamente */
 }

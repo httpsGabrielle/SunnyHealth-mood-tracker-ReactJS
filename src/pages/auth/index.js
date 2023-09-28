@@ -35,7 +35,7 @@ export default function LoginPage({children}){
                     </Typography>
                 </Grid>
 
-                <Grid xs={6} lg={3.5} item sx={{p:10}}>
+                <Grid xs={12} lg={3.5} item sx={{p:10}}>
                     {children}
                 </Grid>
             </Grid>

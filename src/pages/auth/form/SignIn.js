@@ -38,7 +38,7 @@ export default function SignIn() {
                 navigate('/')
             },
             response => {
-                setError(response.response.data.message)
+                setError(response.response.data?.message ?? 'Ocorreu um erro')
                 setLoading(false)
             }
         )

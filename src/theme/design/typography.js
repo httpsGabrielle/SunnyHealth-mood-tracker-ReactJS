@@ -1,3 +1,7 @@
+import palette from './palette';
+
+// ----------------------------------------------------------------
+
 export function remToPx(value) {
   return Math.round(parseFloat(value) * 16);
 }
@@ -68,6 +72,11 @@ const typography = {
     lineHeight: 24 / 14,
     fontSize: pxToRem(14),
     textTransform: 'capitalize',
+  },
+  submenu:{
+    fontWeight: 600,
+    color: palette.grey[600],
+    fontSize: pxToRem(13)
   }
 };
 
