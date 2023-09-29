@@ -63,12 +63,13 @@ export default function FormMood(){
 
     function handleSave(){
         setLoading(true)
-        const mood = [{
+        const newmood = [{
             text: observation,
             mood: mood,
             related_user: sessionStorage.getItem('secret')
         }]
-        api.post('/moodtracker').then(
+        console.log(newmood)
+        api.post('/moodtracker', newmood).then(
             response => {
                 setLoading(false)
             },
