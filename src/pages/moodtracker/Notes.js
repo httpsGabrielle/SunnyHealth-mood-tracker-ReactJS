@@ -43,7 +43,7 @@ export default function Notes({note}){
                                     alignItems: 'center'
                                 }}
                             >
-                                <IconProvider icon={note.mood == 'feliz' ? 'mingcute:chat-2-fill' : ''}/>
+                                <IconProvider icon={'mingcute:chat-2-fill'}/>
                             </Box>
                         </Grid>
                         <Grid>
