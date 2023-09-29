@@ -42,6 +42,8 @@ export default function SignUp(req, res, next) {
         api.post('/usuario', reg).then(
             response => {
                 setLoading(false)
+                sessionStorage.setItem('auth', response.data.token)
+                sessionStorage.setItem('secret', response.data.user._id)
                 navigate('/')
             },
             response => {

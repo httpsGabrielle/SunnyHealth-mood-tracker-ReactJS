@@ -35,9 +35,9 @@ export default function SignIn() {
         api.post('/authenticate', log).then(
             response => {
                 setLoading(false)
-                navigate('/')
                 sessionStorage.setItem('auth', response.data.token)
                 sessionStorage.setItem('secret', response.data.user._id)
+                navigate('/')
             },
             response => {
                 setError(response.response.data?.message ?? 'Ocorreu um erro')
