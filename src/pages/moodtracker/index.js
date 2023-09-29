@@ -93,16 +93,14 @@ export default function MoodTracker(){
                     container
                     direction="row"
                     justifyContent="space-between"
-                    alignItems="center"
+                    alignItems="flex-start"
                     sx={{p:3}}
                 >
 
                     <Grid xs={8}>
-                        <Card>
-                            {notes.map((note)=>(
-                                <Notes note={note}/>
-                            ))}
-                        </Card>
+                        {notes.map((note)=>(
+                            <Notes note={note}/>
+                        ))}
                     </Grid>
 
                     <Grid>

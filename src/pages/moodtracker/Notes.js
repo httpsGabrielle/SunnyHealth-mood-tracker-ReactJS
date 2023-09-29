@@ -6,7 +6,7 @@ import palette from "../../theme/design/palette"
 export default function Notes({note}){
     return(
         <>
-            <Card sx={{p:3, my: 3}}>
+            <Card sx={{p:3, my: 2}}>
                 <Grid container alignItems="center">
                     <Grid sx={{pr: 2}}>
                         <Box 
