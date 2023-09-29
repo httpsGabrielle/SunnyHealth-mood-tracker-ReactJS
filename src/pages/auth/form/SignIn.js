@@ -36,6 +36,7 @@ export default function SignIn() {
             response => {
                 setLoading(false)
                 navigate('/')
+                sessionStorage.setItem('auth', response.data.token)
             },
             response => {
                 setError(response.response.data?.message ?? 'Ocorreu um erro')
