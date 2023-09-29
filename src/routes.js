@@ -6,6 +6,8 @@ import SignIn from './pages/auth/form/SignIn';
 import SignUp from './pages/auth/form/SignUp';
 import BreathRoom from './pages/sensorial/breath-room/BreathRoom';
 import Layout from './layout/Layout';
+import Home from './pages/home';
+import MoodTracker from './pages/moodtracker';
 
 // ----------------------------------------------------------------------
 
@@ -23,7 +25,9 @@ export default function Router() {
         path: '/',
         element: <Layout/>,
         children:[
-          {element: <BreathRoom/>, index: true}
+          {element: <Home/>, index: true},
+          {path: '/breath-room', element: <BreathRoom/>},
+          {path: '/mood-tracker', element: <MoodTracker/>}
         ]
       }
     ]);

@@ -10,7 +10,7 @@ import { Typography, TextField, InputAdornment, IconButton, Alert } from '@mui/m
 import { LoadingButton } from '@mui/lab';
 // 
 import LoginPage from '..';
-import IconProvider from '../../../components/assets/icon/IconProvider';
+import IconProvider from '../../../components/IconProvider';
 import palette from '../../../theme/design/palette';
 //----------------------------------------------------------------
 

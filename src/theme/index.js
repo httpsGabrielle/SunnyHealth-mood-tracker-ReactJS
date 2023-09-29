@@ -7,6 +7,7 @@ import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } 
 import palette from './design/palette';
 import typography from './design/typography';
 import CustomMui from './custom-mui/index';
+import shadows from './design/shadows';
 
 // ----------------------------------------------------------------------
 
@@ -18,6 +19,7 @@ export default function ThemeProvider({ children }) {
   const themeOptions = useMemo(
     () => ({
       palette,
+      shadows: shadows(),
       typography
     }),
     []

@@ -5,7 +5,7 @@ import { Box, List, ListItemButton, ListItemIcon, ListItemText, Typography } fro
 
 //
 import linkList from './list'
-import IconProvider from '../../../components/assets/icon/IconProvider';
+import IconProvider from '../../../components/IconProvider';
 // ----------------------------------------------------------------
 
 export default function NavItems(){
@@ -18,7 +18,7 @@ export default function NavItems(){
                 {linkList.map((item) => (
                     <>
                         <Typography variant="submenu" sx={{fontWeight: 'bold'}}>{item.label}</Typography>
-                        <ListItemButton sx={{mb: 2}} onClick={e=>{navigate(item.path)}}>
+                        <ListItemButton sx={{mb: 1, mt: 2}} onClick={e=>{navigate(item.path)}}>
                             <ListItemIcon>
                                 <IconProvider icon={item.icon}/>
                             </ListItemIcon>

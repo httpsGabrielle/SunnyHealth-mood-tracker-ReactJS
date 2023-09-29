@@ -1,5 +1,5 @@
 // component
-import IconProvider from '../../../components/assets/icon/IconProvider';
+import IconProvider from '../../../components/IconProvider';
 
 // ----------------------------------------------------------------------
 
@@ -13,8 +13,14 @@ const linkList = [
   },
   {
     label:'',
+    title: 'Mood Tracker',
+    path: '/mood-tracker',
+    icon: 'mingcute:moon-stars-line',
+  },
+  {
+    label:'',
     title: 'Breath',
-    path: '/',
+    path: '/breath-room',
     icon: 'mi:wind',
   }
 ];
