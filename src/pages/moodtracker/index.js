@@ -38,7 +38,7 @@ export default function MoodTracker(){
 
     function getNotes(){
         setLoading(true)
-        api.get('/moodtracker').then(
+        api.get(`/moodtracker/${sessionStorage.getItem('secret')}`).then(
             response => {
                 setLoading(false)
                 setNotes(response.data)

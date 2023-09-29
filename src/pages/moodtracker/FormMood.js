@@ -66,7 +66,7 @@ export default function FormMood(){
         const mood = [{
             text: observation,
             mood: mood,
-            related_user: sessionStorage.getItem('_id')
+            related_user: sessionStorage.getItem('secret')
         }]
         api.post('/moodtracker').then(
             response => {
