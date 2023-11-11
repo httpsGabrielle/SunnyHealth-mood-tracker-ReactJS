@@ -13,6 +13,12 @@ const linkList = [
   },
   {
     label:'',
+    title: 'Tarefas',
+    path: '/tarefas',
+    icon: 'mingcute:list-check-2-fill',
+  },
+  {
+    label:'',
     title: 'Mood Tracker',
     path: '/mood-tracker',
     icon: 'mingcute:moon-stars-line',
@@ -22,7 +28,8 @@ const linkList = [
     title: 'Breath',
     path: '/breath-room',
     icon: 'mi:wind',
-  }
+  },
+  
 ];
 
 export default linkList;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../services/api"
 
 
-import { Button, Card, Container, Grid, Modal, Box, Typography } from "@mui/material";
+import { Button, Card, Container, Grid, Modal, Box, Typography, Backdrop, CircularProgress } from "@mui/material";
 import Calendar from "./Calendar";
 import IconProvider from '../../components/IconProvider'
 import FormMood from "./FormMood";
@@ -25,7 +25,7 @@ const style = {
 export default function MoodTracker(){
     const [notes, setNotes] = useState([])
     //
-    const [isLoading, setLoading ] = useState()
+    const [isLoading, setLoading ] = useState(false)
     const [error, setError] = useState()
     //
     const [open, setOpen] = useState(false);
@@ -44,6 +44,7 @@ export default function MoodTracker(){
                 setNotes(response.data)
             },
             response => {
+                setLoading(false)
                 setError(response.response.data?.message ?? 'Ocorreu um erro, tente novamente mais tarde')
             }
         )
@@ -110,6 +111,13 @@ export default function MoodTracker(){
                     </Grid>
 
                 </Grid>
+
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={isLoading}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </Container>
         </>
     )

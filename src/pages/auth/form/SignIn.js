@@ -37,6 +37,7 @@ export default function SignIn() {
                 setLoading(false)
                 sessionStorage.setItem('auth', response.data.token)
                 sessionStorage.setItem('secret', response.data.user._id)
+                sessionStorage.setItem('nickname', response.data.user.nickname)
                 navigate('/')
             },
             response => {
