@@ -72,6 +72,7 @@ export default function FormMood(){
         api.post('/moodtracker', newmood).then(
             response => {
                 setLoading(false)
+                window.location.reload()
             },
             response => {
                 setError(response.response.data?.message ?? 'Ocorreu um erro, tente novamente mais tarde')

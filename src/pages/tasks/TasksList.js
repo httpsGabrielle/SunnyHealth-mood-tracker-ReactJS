@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 
 import api from "../../services/api"
 
+import { Button, Card, Container, Grid, Modal, Box, Typography, Backdrop, CircularProgress } from "@mui/material";
+
 import IconProvider from '../../components/IconProvider'
 
-import { Button, Card, Container, Grid, Modal, Box, Typography, Backdrop, CircularProgress } from "@mui/material";
+import FormTask from './FormTask'
+import Task from "./Task";
 
 // ----------------------------------------------------------------
 
@@ -21,7 +24,7 @@ const style = {
 // ----------------------------------------------------------------
 
 export default function TasksList(){
-    const [notes, setNotes] = useState([])
+    const [taskList, setTaskList] = useState([])
     //
     const [isLoading, setLoading ] = useState(false)
     const [error, setError] = useState()
@@ -31,15 +34,15 @@ export default function TasksList(){
     const handleClose = () => setOpen(false);
 
     useEffect(()=>{
-        getNotes()
+        getTaskList()
     },[])
 
-    function getNotes(){
+    function getTaskList(){
         setLoading(true)
-        api.get(`/moodtracker/${sessionStorage.getItem('secret')}`).then(
+        api.get(`/task/${sessionStorage.getItem('secret')}`).then(
             response => {
                 setLoading(false)
-                setNotes(response.data)
+                setTaskList(response.data)
             },
             response => {
                 setLoading(false)
@@ -51,6 +54,7 @@ export default function TasksList(){
     return (
         <>
             <Container>
+
                 <Grid
                     container
                     direction="row"
@@ -58,8 +62,53 @@ export default function TasksList(){
                     alignItems="center"
                     sx={{p:3}}
                 >
-                    <Typography variant="h6"><IconProvider icon={'mingcute:list-check-2-fill'} sx={{mx: 2}}/>Tarefas</Typography>
-                    
+
+                    <Grid>
+                        <Typography variant="h6"><IconProvider icon={'mingcute:list-check-2-fill'} sx={{mx: 2}}/>Tarefas</Typography>
+                    </Grid>
+
+                    <Grid>
+                        <Button onClick={handleOpen} variant="contained">
+                            <IconProvider icon={'heroicons-solid:plus-sm'} sx={{me: 2}}/>
+                            Nova Tarefa
+                        </Button>
+                        <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Card sx={style}>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justifyContent="space-between"
+                                    alignItems="center"
+                                    sx={{py: 2}}
+                                >
+                                    <Typography variant="h1">Nova Tarefa</Typography>
+                                    <Button variant="fill"><IconProvider icon={'mingcute:close-fill'} onClick={handleClose}/></Button>
+                                </Grid>
+                                <FormTask/>
+                            </Card>
+                        </Modal>
+                    </Grid>
+
+                </Grid>
+
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="flex-start"
+                    sx={{p:3}}
+                >
+
+                    <Grid xs={12}>
+                        {taskList.map((task)=>(
+                            <Task date={new Date(task.date)} name={task.name} complete={task.complete} _id={task._id}/>
+                        ))}
+                    </Grid>
 
                 </Grid>
 
@@ -69,6 +118,7 @@ export default function TasksList(){
                 >
                     <CircularProgress color="inherit" />
                 </Backdrop>
+
             </Container>
         </>
     )

@@ -41,7 +41,7 @@ const typography = {
     fontWeight: 700,
     lineHeight: 64 / 48,
     fontSize: pxToRem(16),
-    ...responsiveFontSizes({ sm: 40, md: 16, lg: 16 }),
+    ...responsiveFontSizes({ sm: 40, md: 16, lg: 18 }),
   },
   h3: {
     fontWeight: 600,
