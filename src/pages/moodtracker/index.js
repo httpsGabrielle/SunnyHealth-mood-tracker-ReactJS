@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
+
+import { useParams } from "react-router-dom";
+
 import api from "../../services/api"
 
-
-import { Button, Card, Container, Grid, Modal, Box, Typography, Backdrop, CircularProgress } from "@mui/material";
 import Calendar from "./Calendar";
 import IconProvider from '../../components/IconProvider'
 import FormMood from "./FormMood";
 import Notes from "./Notes";
+
+import { Button, Card, Container, Grid, Modal, Box, Typography, Backdrop, CircularProgress } from "@mui/material";
 
 // ----------------------------------------------------------------
 
@@ -23,13 +26,18 @@ const style = {
 // ----------------------------------------------------------------
 
 export default function MoodTracker(){
+    const { create } = useParams()
+
     const [notes, setNotes] = useState([])
     //
     const [isLoading, setLoading ] = useState(false)
+
     const [error, setError] = useState()
     //
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(create === 'create' ? true : false);
+
     const handleOpen = () => setOpen(true);
+
     const handleClose = () => setOpen(false);
 
     useEffect(()=>{

@@ -28,7 +28,7 @@ export default function Router() {
         children:[
           {element: <Home/>, index: true},
           {path: '/breath-room', element: <BreathRoom/>},
-          {path: '/mood-tracker', element: <MoodTracker/>},
+          {path: '/mood-tracker/:create?', element: <MoodTracker/>},
           {path: '/tarefas', element: <TasksList/>}
         ]
       }

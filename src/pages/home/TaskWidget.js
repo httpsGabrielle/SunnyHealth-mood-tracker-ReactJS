@@ -1,10 +1,55 @@
 
 //----------------------------------------------------------------
+import { useState, useEffect } from "react";
 
-import { Card, Checkbox, Divider, FormControlLabel, Grid, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+import api from "../../services/api";
+
+import { Backdrop, Button, Card, Checkbox, CircularProgress, Divider, FormControlLabel, Grid, IconButton, Typography } from "@mui/material";
 import IconProvider from "../../components/IconProvider";
 
 export default function Achievements(){
+    const navigate = useNavigate()
+
+    const [taskList, setTaskList] = useState([])
+
+    const [isLoading, setLoading ] = useState(false)
+
+    useEffect(()=>{
+        getTaskList()
+    },[])
+
+    function getTaskList(){
+        setLoading(true)
+        api.get(`/task/${sessionStorage.getItem('secret')}`).then(
+            response => {
+                setLoading(false)
+                setTaskList(response.data)
+            },
+            response => {
+                setLoading(false)
+            }
+        )
+    }
+
+    function handleCompleteTask(_id, status){
+        const data = [{
+            complete: !status
+        }]
+        setLoading(true)
+        api.patch(`/task/${_id}`, data).then(
+            response => {
+                setLoading(false)
+                getTaskList()
+            },
+            err => {
+                setLoading(false)
+            }
+        ) 
+    };
+
+
     return (
         <>
             <Card sx={{p: 3}}>
@@ -14,27 +59,44 @@ export default function Achievements(){
                     justifyContent="space-between"
                     alignItems="center"
                 >
-                    <Grid><Typography variant="h6">Tarefas</Typography></Grid>
-                    <Grid><IconProvider icon={'tabler:edit'}/></Grid>
-                </Grid>
-                <Divider/>
-                <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="flex-start"
-                    sx={{boxShadow: 2, my: 2, p: 1}}
-                >
-                    <FormControlLabel control={<Checkbox />}/>
                     <Grid>
-                        <Typography variant="h3">Limpar os vasos</Typography>
-                        <Typography variant="subtitle3">
-                            <IconProvider icon={'mingcute:calendar-2-line'} width={'14'} sx={{mr: 1}}/>
-                            12 Nov. 2022
-                        </Typography>
+                        <Typography variant="h6">Tarefas</Typography>
+                    </Grid>
+                    <Grid>
+                        <IconButton
+                            onClick={e=>{navigate('/tarefas')}}
+                        >
+                            <IconProvider icon={'tabler:edit'}/>
+                        </IconButton>
                     </Grid>
                 </Grid>
+                <Divider/>
+                {taskList.map((task)=>(
+                    <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="flex-start"
+                        sx={{boxShadow: 2, my: 2, p: 1}}
+                    >
+                        <FormControlLabel control={<Checkbox checked={task.complete} onChange={e=>{handleCompleteTask(task._id, task.complete)}}/>}/>
+                        <Grid>
+                            <Typography variant="h3" sx={{textDecoration: task.complete ? 'line-through' : 'none'}}>{task.name}</Typography>
+                            <Typography variant="subtitle3">
+                                <IconProvider icon={'mingcute:calendar-2-line'} width={'14'} sx={{mr: 1}}/>
+                                {new Date(task.date).toLocaleDateString("en-US", {year: "numeric",month: "short",day: "numeric"})}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                ))}
             </Card>
+
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={isLoading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </>
     )
 }

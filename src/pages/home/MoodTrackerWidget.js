@@ -1,6 +1,8 @@
 
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import api from "../../services/api";
 
 import IconProvider from '../../components/IconProvider' 
@@ -11,7 +13,10 @@ import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
 // ----------------------------------------------------------------
 
 export default function MoodTrackerWidget(){
+    const navigate = useNavigate()
+
     const [moodList, setMoodList] = useState([])
+
     const [loading, setLoading] = useState(false)
 
     useEffect(()=>{
@@ -59,6 +64,7 @@ export default function MoodTrackerWidget(){
                                 bgcolor: 'grey.200',
                             },
                             }}
+                            onClick={e=>{navigate('/mood-tracker/create')}}
                         >
                             <IconProvider sx={{mb: 1}} icon={'mingcute:add-circle-fill'}/>
                             <Typography variant="button"> Registrar </Typography>
