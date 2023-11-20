@@ -15,7 +15,13 @@ const linkList = [
     label:'',
     title: 'Tarefas',
     path: '/tarefas',
-    icon: 'mingcute:list-check-2-fill',
+    icon: 'mingcute:alarm-1-line',
+  },
+  {
+    label:'',
+    title: 'Hábitos',
+    path: '/habitos',
+    icon: 'mingcute:flower-4-fill',
   },
   {
     label:'',
@@ -25,11 +31,10 @@ const linkList = [
   },
   {
     label:'',
-    title: 'Breath',
+    title: 'Sala de Meditação',
     path: '/breath-room',
-    icon: 'mi:wind',
-  },
-  
+    icon: 'mingcute:lotus-line',
+  }
 ];
 
 export default linkList;
