@@ -22,7 +22,7 @@ export default function PieCharts({data}) {
     return (
       <>
         <StyledText x={left + width / 2} y={top + height / 2.5} sx={{fontWeight: 800}}>
-          56%
+          {data[1]?.value !== 0 ? (data[0]?.value / data[1]?.value) * 100 : '100'}%
         </StyledText>
         <StyledText x={left + width / 2} y={top + height / 1.9} sx={{fontSize: 14}}>
           {children}

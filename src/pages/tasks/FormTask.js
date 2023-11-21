@@ -24,7 +24,7 @@ export default function FormTask({nameProps , dataProps , observationProps, _id 
     const [error, setError] = useState()
     //
     const [taskName, setTaskName] = useState(nameProps ?? '')
-    const [date, setDate] = useState(dataProps ?? '')
+    const [date, setDate] = useState(dataProps ?? new Date())
     const [observation, setObservation] = useState(observationProps ?? '')
 
     function handleSave(){

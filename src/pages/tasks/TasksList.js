@@ -43,11 +43,11 @@ export default function TasksList(){
         setLoading(true)
         api.get(`/task/${sessionStorage.getItem('secret')}`).then(
             response => {
-                setTaskList(response.data)
+                setTaskList(response.data.tasks)
 
                 const chartLoad = [
-                    { label: 'Tarefas Completa', value: 400, color: '#ff5252' },
-                    { value: 300, color: '#fff' },
+                    { label: 'Tarefas Completas', value: response.data.completedTasksCount, color: '#7C4AFF' },
+                    { value: response.data.incompleteTasksCount, color: '#fff' },
                 ];
                 setChartValue(chartLoad)
                 setLoading(false)

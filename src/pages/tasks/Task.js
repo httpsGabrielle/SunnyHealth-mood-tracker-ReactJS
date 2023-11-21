@@ -93,27 +93,24 @@ export default function Task({ date , name, complete, _id, observation }){
                         <Divider orientation="vertical"/>
                     </Grid>
 
-                    <Grid item xs={2}>
+                    <Grid item xs={9}>
 
                         <Typography 
-                            sx={{display: 'flex'}}
+                            variant="h2" 
+                            sx={{
+                                textDecoration: status ? 'line-through' : 'none',
+                                color: status ? grey[400] : ''
+                            }}
                         >
-                            <IconProvider 
-                                icon={'ic:round-access-time-filled'} 
-                                sx={{mr: 1, color: grey['500']}}
-                            />
-                            {date.toLocaleTimeString('pt-BR', {hour: 'numeric', minute: 'numeric'})}
+                            {name}
                         </Typography>
 
                         <Typography sx={{display: 'flex'}}>
-                            <FormControlLabel control={<Checkbox checked={status} onChange={handleCompleteTask}/>} label="Complete" />
+                            <FormControlLabel control={<Checkbox checked={status} onChange={handleCompleteTask}/>} label="Completa" />
                         </Typography>
                         
                     </Grid>
-
-                    <Grid item xs={7} sx={{display: 'flex'}}>
-                        <Typography variant="h2">{name}</Typography>
-                    </Grid>
+                    
                     <Grid item>
                         <IconButton
                             onClick={handleClick}

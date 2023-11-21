@@ -25,7 +25,7 @@ export default function Achievements(){
         api.get(`/task/${sessionStorage.getItem('secret')}`).then(
             response => {
                 setLoading(false)
-                setTaskList(response.data)
+                setTaskList(response.data.tasks)
             },
             response => {
                 setLoading(false)
