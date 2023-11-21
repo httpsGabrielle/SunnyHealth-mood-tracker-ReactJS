@@ -6,7 +6,6 @@ import IconProvider from "../../components/IconProvider";
 
 import { Backdrop, Button, Card, Checkbox, CircularProgress, Divider, FormControlLabel, Grid, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import api from "../../services/api";
-import Calendar from "./Calendar";
 
 //----------------------------------------------------------------
 

@@ -8,7 +8,7 @@ import IconProvider from '../../components/IconProvider'
 
 import FormTask from './Form'
 import Habits from "./Habits";
-import PieCharts from "./PieCharts"
+import PieCharts from "../../components/chats/PieCharts"
 
 // ----------------------------------------------------------------
 
@@ -110,13 +110,6 @@ export default function HabitsList(){
                         {taskList.map((task)=>(
                             <Habits date={new Date(task.date)} name={task.name} complete={task.complete} _id={task._id}/>
                         ))}
-                    </Grid>
-
-                    <Grid item xs={12} lg={4}>
-                        <Card sx={{p:3}}>
-                            <Typography variant="h2">Progresso</Typography>
-                            <PieCharts/>
-                        </Card>
                     </Grid>
 
                 </Grid>

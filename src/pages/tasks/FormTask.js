@@ -16,15 +16,16 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker, renderTimeViewClock } from "@mui/x-date-pickers";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import dayjs from "dayjs";
 
 // ----------------------------------------------------------------
-export default function FormMood(){
+export default function FormTask({nameProps , dataProps , observationProps, _id }){
     const [isLoading, setLoading ] = useState()
     const [error, setError] = useState()
     //
-    const [taskName, setTaskName] = useState()
-    const [date, setDate] = useState()
-    const [observation, setObservation] = useState()
+    const [taskName, setTaskName] = useState(nameProps ?? '')
+    const [date, setDate] = useState(dataProps ?? '')
+    const [observation, setObservation] = useState(observationProps ?? '')
 
     function handleSave(){
         setLoading(true)
@@ -46,13 +47,32 @@ export default function FormMood(){
         )
     }
 
+    function handleUpdate(){
+        setLoading(true)
+        const upcommingtask = [{
+            name: taskName,
+            date: date['$d'],
+            observation: observation,
+        }]
+        api.patch(`/task/${_id}`, upcommingtask).then(
+            response => {
+                setLoading(false)
+                window.location.reload()
+            },
+            err => {
+                setLoading(false)
+                setError(err.response.data?.message ?? 'Ocorreu um erro, tente novamente mais tarde')
+            }
+        )
+    }
+
     return (
         <>
             <Grid container spacing={2}>
 
                 <Grid item xs={12}>
                     <Typography sx={{pb:2}}>Nome da tarefa</Typography>
-                    <TextField variant="outlined" fullWidth multiline onChange={e=>{setTaskName(e.target.value)}}/>
+                    <TextField variant="outlined" fullWidth multiline value={taskName} onChange={e=>{setTaskName(e.target.value)}}/>
                 </Grid>
 
                 <Grid item xs={12}>
@@ -60,6 +80,7 @@ export default function FormMood(){
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
                             <DateTimePicker
+                                value={dayjs(date)}
                                 onChange={(newValue) => setDate(newValue)}
                                 viewRenderers={{
                                     hours: renderTimeViewClock,
@@ -73,7 +94,7 @@ export default function FormMood(){
 
                 <Grid item xs={12}>
                     <Typography sx={{pb:2}}>Observação</Typography>
-                    <TextField variant="outlined" fullWidth multiline rows={4} onChange={e=>{setObservation(e.target.value)}}/>
+                    <TextField variant="outlined" fullWidth multiline rows={4} value={observation} onChange={e=>{setObservation(e.target.value)}}/>
                 </Grid>
                 
                 <Grid item>
@@ -83,7 +104,7 @@ export default function FormMood(){
                         </Alert>
                     : ''}
 
-                    <LoadingButton variant="contained" onClick={e=>{handleSave()}} loading={isLoading}>
+                    <LoadingButton variant="contained" onClick={e=>{ _id != undefined ? handleUpdate() : handleSave()}} loading={isLoading}>
                         <IconProvider icon={'fluent:save-24-regular'} sx={{mr:2}}/>
                         Salvar
                     </LoadingButton>

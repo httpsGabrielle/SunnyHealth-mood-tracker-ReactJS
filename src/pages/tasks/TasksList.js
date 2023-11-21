@@ -8,6 +8,7 @@ import IconProvider from '../../components/IconProvider'
 
 import FormTask from './FormTask'
 import Task from "./Task";
+import PieCharts from "../../components/chats/PieCharts";
 
 // ----------------------------------------------------------------
 
@@ -25,6 +26,7 @@ const style = {
 
 export default function TasksList(){
     const [taskList, setTaskList] = useState([])
+    const [chartValue, setChartValue] = useState([])
     //
     const [isLoading, setLoading ] = useState(false)
     const [error, setError] = useState()
@@ -41,8 +43,14 @@ export default function TasksList(){
         setLoading(true)
         api.get(`/task/${sessionStorage.getItem('secret')}`).then(
             response => {
-                setLoading(false)
                 setTaskList(response.data)
+
+                const chartLoad = [
+                    { label: 'Tarefas Completa', value: 400, color: '#ff5252' },
+                    { value: 300, color: '#fff' },
+                ];
+                setChartValue(chartLoad)
+                setLoading(false)
             },
             response => {
                 setLoading(false)
@@ -102,12 +110,20 @@ export default function TasksList(){
                     justifyContent="space-between"
                     alignItems="flex-start"
                     sx={{p:3}}
+                    spacing={3}
                 >
 
-                    <Grid xs={12}>
+                    <Grid item xs={12} lg={8}>
                         {taskList.map((task)=>(
-                            <Task date={new Date(task.date)} name={task.name} complete={task.complete} _id={task._id}/>
+                            <Task date={new Date(task.date)} name={task.name} complete={task.complete} _id={task._id} observation={task.observation}/>
                         ))}
+                    </Grid>
+
+                    <Grid item xs={12} lg={4}>
+                        <Card sx={{p: 2}}>
+                            <Typography variant="h2">Progresso</Typography>
+                            <PieCharts data={chartValue}/>
+                        </Card>
                     </Grid>
 
                 </Grid>

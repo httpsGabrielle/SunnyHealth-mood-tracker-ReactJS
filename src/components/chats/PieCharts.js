@@ -7,12 +7,7 @@ import { styled } from '@mui/material/styles';
 
 // ----------------------------------------------------------------
 
-export default function PieCharts() {
-
-  const data = [
-    { label: 'Group A', value: 400, color: '#ff5252' },
-    { value: 300, color: '#fff' },
-  ];
+export default function PieCharts({data}) {
 
   
   const StyledText = styled('text')(({ theme }) => ({
