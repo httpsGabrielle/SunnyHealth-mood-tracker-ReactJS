@@ -28,17 +28,15 @@ export default function FormHabits(){
     const [selectedTurno, setSelectedTurno] = useState('Qualquer Turno')
     const [icon, setIcon] = useState('mingcute:alarm-1-line')
     const [iconColor, setIconColor] = useState('#ffc8dd')
-    const [date, setDate] = useState()
-    const [observation, setObservation] = useState()
 
     const [weekdays, setWeekdays] = useState([
-        {label: 'D', day: 'Domingo', selected: false},
-        {label: 'S', day: 'Segunda', selected: true},
-        {label: 'T', day: 'Terça', selected: true},
-        {label: 'Q', day: 'Quarta', selected: true},
-        {label: 'Q', day: 'Quinta', selected: true},
-        {label: 'S', day: 'Sexta', selected: true},
-        {label: 'S', day: 'Sábado', selected: false},
+        {day: 'Domingo', selected: false},
+        {day: 'Segunda', selected: true},
+        {day: 'Terça', selected: true},
+        {day: 'Quarta', selected: true},
+        {day: 'Quinta', selected: true},
+        {day: 'Sexta', selected: true},
+        {day: 'Sábado', selected: false},
     ])
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -56,12 +54,18 @@ export default function FormHabits(){
     function handleSave(){
         setLoading(true)
         const newtarefa = [{
+            related_user: sessionStorage.getItem('secret'),
             name: habitName,
-            date: date['$d'],
-            observation: observation,
-            related_user: sessionStorage.getItem('secret')
+            date: new Date(),
+            icon: {
+                color: iconColor,
+                name: icon
+            },
+            weekdays: weekdays,
+            hour: selectedTurno
         }]
-        api.post('/task', newtarefa).then(
+        console.log(newtarefa)
+        api.post('/habits', newtarefa).then(
             response => {
                 setLoading(false)
                 window.location.reload()
@@ -77,16 +81,6 @@ export default function FormHabits(){
         let wDays = [...weekdays]
         wDays[index].selected = !wDays[index].selected
         setWeekdays(wDays)
-        let selectedDays = weekdaysRepetion
-        const indexOfDay = selectedDays.indexOf(value)
-
-        if(indexOfDay === -1){
-            selectedDays.push(value);
-        }else{
-            selectedDays.splice(indexOfDay, 1);
-        }
-
-        setWeekdaysRepetion(selectedDays)
     }
 
     const turnos = [
@@ -260,7 +254,7 @@ export default function FormHabits(){
                                     }}
                                     onClick={e=>{handleSelectDays(weekday.day, i)}}
                                 >
-                                    {weekday.label}
+                                    {weekday.day[0]}
                                 </Box>
                             </Grid>
                         ))} 

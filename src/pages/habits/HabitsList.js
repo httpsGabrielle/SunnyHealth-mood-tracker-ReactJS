@@ -6,7 +6,7 @@ import { Button, Card, Container, Grid, Modal, Box, Typography, Backdrop, Circul
 
 import IconProvider from '../../components/IconProvider'
 
-import FormTask from './Form'
+import FormHabits from './Form'
 import Habits from "./Habits";
 import PieCharts from "../../components/chats/PieCharts"
 
@@ -25,7 +25,7 @@ const style = {
 // ----------------------------------------------------------------
 
 export default function HabitsList(){
-    const [taskList, setTaskList] = useState([])
+    const [habitsList, setHabitsList] = useState([])
     //
     const [isLoading, setLoading ] = useState(false)
     const [error, setError] = useState()
@@ -35,15 +35,15 @@ export default function HabitsList(){
     const handleClose = () => setOpen(false);
 
     useEffect(()=>{
-        getTaskList()
+        getHabitsList()
     },[])
 
-    function getTaskList(){
+    function getHabitsList(){
         setLoading(true)
-        api.get(`/task/${sessionStorage.getItem('secret')}`).then(
+        api.get(`/habits/${sessionStorage.getItem('secret')}`).then(
             response => {
                 setLoading(false)
-                setTaskList(response.data)
+                setHabitsList(response.data.habits)
             },
             response => {
                 setLoading(false)
@@ -90,7 +90,7 @@ export default function HabitsList(){
                                     <Typography variant="h1">Novo Hábito</Typography>
                                     <Button variant="fill"><IconProvider icon={'mingcute:close-fill'} onClick={handleClose}/></Button>
                                 </Grid>
-                                <FormTask/>
+                                <FormHabits/>
                             </Card>
                         </Modal>
                     </Grid>
@@ -107,8 +107,8 @@ export default function HabitsList(){
                 >
 
                     <Grid item xs={12} lg={8}>
-                        {taskList.map((task)=>(
-                            <Habits date={new Date(task.date)} name={task.name} complete={task.complete} _id={task._id}/>
+                        {habitsList.map((habit)=>(
+                            <Habits _id={habit._id} data={habit}/>
                         ))}
                     </Grid>
 

@@ -40,6 +40,8 @@ export default function MoodTracker(){
 
     const handleClose = () => setOpen(false);
 
+    const [dateList, setDateList] = useState([])
+
     useEffect(()=>{
         getNotes()
     },[])
@@ -50,6 +52,10 @@ export default function MoodTracker(){
             response => {
                 setLoading(false)
                 setNotes(response.data)
+                const dates = response.data.map((d)=>(
+                    d.createdAt
+                ))
+                setDateList(dates)
             },
             response => {
                 setLoading(false)
@@ -114,7 +120,7 @@ export default function MoodTracker(){
 
                     <Grid>
                         <Card>
-                            <Calendar/>
+                            <Calendar data={dateList}/>
                         </Card>
                     </Grid>
 
