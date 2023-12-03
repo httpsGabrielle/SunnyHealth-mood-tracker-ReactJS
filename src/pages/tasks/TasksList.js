@@ -9,6 +9,7 @@ import IconProvider from '../../components/IconProvider'
 import FormTask from './FormTask'
 import Task from "./Task";
 import PieCharts from "../../components/chats/PieCharts";
+import secureLocalStorage from "react-secure-storage";
 
 // ----------------------------------------------------------------
 
@@ -41,7 +42,7 @@ export default function TasksList(){
 
     function getTaskList(){
         setLoading(true)
-        api.get(`/task/${sessionStorage.getItem('secret')}`).then(
+        api.get(`/task/${secureLocalStorage.getItem('secret')}`).then(
             response => {
                 setTaskList(response.data.tasks)
 

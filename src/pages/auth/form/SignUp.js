@@ -12,6 +12,7 @@ import { LoadingButton } from '@mui/lab';
 import LoginPage from '..';
 import IconProvider from '../../../components/IconProvider'
 import palette from '../../../theme/design/palette';
+import secureLocalStorage from 'react-secure-storage';
 
 //----------------------------------------------------------------
 
@@ -42,8 +43,8 @@ export default function SignUp(req, res, next) {
         api.post('/usuario', reg).then(
             response => {
                 setLoading(false)
-                sessionStorage.setItem('auth', response.data.token)
-                sessionStorage.setItem('secret', response.data.user._id)
+                secureLocalStorage.setItem('auth', response.data.token)
+                secureLocalStorage.setItem('secret', response.data.user._id)
                 navigate('/')
             },
             response => {

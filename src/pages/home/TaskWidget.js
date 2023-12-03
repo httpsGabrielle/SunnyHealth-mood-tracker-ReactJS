@@ -1,13 +1,16 @@
-
-//----------------------------------------------------------------
 import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import secureLocalStorage from "react-secure-storage";
+
 import api from "../../services/api";
 
 import { Backdrop, Button, Card, Checkbox, CircularProgress, Divider, FormControlLabel, Grid, IconButton, Typography } from "@mui/material";
+
 import IconProvider from "../../components/IconProvider";
+
+// ----------------------------------------------------------------
 
 export default function Achievements(){
     const navigate = useNavigate()
@@ -22,7 +25,7 @@ export default function Achievements(){
 
     function getTaskList(){
         setLoading(true)
-        api.get(`/task/${sessionStorage.getItem('secret')}`).then(
+        api.get(`/task/${secureLocalStorage.getItem('secret')}`).then(
             response => {
                 setLoading(false)
                 setTaskList(response.data.tasks)

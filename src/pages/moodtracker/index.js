@@ -10,6 +10,7 @@ import FormMood from "./FormMood";
 import Notes from "./Notes";
 
 import { Button, Card, Container, Grid, Modal, Box, Typography, Backdrop, CircularProgress } from "@mui/material";
+import secureLocalStorage from "react-secure-storage";
 
 // ----------------------------------------------------------------
 
@@ -48,7 +49,7 @@ export default function MoodTracker(){
 
     function getNotes(){
         setLoading(true)
-        api.get(`/moodtracker/${sessionStorage.getItem('secret')}`).then(
+        api.get(`/moodtracker/${secureLocalStorage.getItem('secret')}`).then(
             response => {
                 setLoading(false)
                 setNotes(response.data)
@@ -76,7 +77,7 @@ export default function MoodTracker(){
                     sx={{p:3}}
                 >
                     <Grid>
-                        <Typography variant="h6"><IconProvider icon={'mingcute:moon-stars-line'} sx={{mx: 2}}/>Mood Tracker</Typography>
+                        <Typography variant="h6"><IconProvider icon={'mingcute:moon-stars-line'} sx={{mx: 2}}/>Diário</Typography>
                     </Grid>
                     <Grid>
                         <Button onClick={handleOpen} variant="contained">

@@ -6,6 +6,8 @@ import { Grid } from "@mui/material";
 
 //components
 import Menu from './menu'
+import Header from "./header";
+import secureLocalStorage from "react-secure-storage";
 
 // ----------------------------------------------------------------
 
@@ -14,7 +16,7 @@ export default function Layout(){
     const navigate = useNavigate()
 
     useEffect(()=>{
-        if(!sessionStorage.getItem('auth')){
+        if(!secureLocalStorage.getItem('auth')){
             navigate('/login')
         }
     }, [])
@@ -23,6 +25,7 @@ export default function Layout(){
         <Grid container sx={{minWidth: '100%'}} columnSpacing={3} >
             <Menu/>
             <Grid xs sx={{p: 3}}>
+                <Header/>
                 <Outlet/>
             </Grid>
         </Grid>

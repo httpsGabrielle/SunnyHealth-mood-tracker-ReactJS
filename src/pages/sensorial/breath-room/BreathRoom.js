@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './Breath.css';
 
 function BreathRoom() {
-  const [breath, setBreath] = useState("Respire");
+  const [breath, setBreath] = useState("Inspira");
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setBreath((prevBreath) => (prevBreath === "Respire" ? "Expire" : "Respire"));
+      setBreath((prevBreath) => (prevBreath === "Inspira" ? "Expire" : "Inspira"));
     }, 6000);
 
     // Limpa o intervalo quando o componente for desmontado

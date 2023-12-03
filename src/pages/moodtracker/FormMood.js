@@ -10,6 +10,7 @@ import sad from '../../components/assets/moods/sad.jpg'
 import tired from '../../components/assets/moods/tired.jpg'
 import soso from '../../components/assets/moods/soso.jpg'
 import { LoadingButton } from "@mui/lab";
+import secureLocalStorage from "react-secure-storage";
 // ----------------------------------------------------------------
 
 const style = {
@@ -66,7 +67,7 @@ export default function FormMood(){
         const newmood = [{
             text: observation,
             mood: mood,
-            related_user: sessionStorage.getItem('secret')
+            related_user: secureLocalStorage.getItem('secret')
         }]
         console.log(newmood)
         api.post('/moodtracker', newmood).then(

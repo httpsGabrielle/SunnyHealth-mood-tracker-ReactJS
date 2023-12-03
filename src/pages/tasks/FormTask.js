@@ -17,6 +17,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker, renderTimeViewClock } from "@mui/x-date-pickers";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from "dayjs";
+import secureLocalStorage from "react-secure-storage";
 
 // ----------------------------------------------------------------
 export default function FormTask({nameProps , dataProps , observationProps, priorityProps, _id }){
@@ -34,7 +35,7 @@ export default function FormTask({nameProps , dataProps , observationProps, prio
             name: taskName,
             date: date['$d'],
             observation: observation,
-            related_user: sessionStorage.getItem('secret'),
+            related_user: secureLocalStorage.getItem('secret'),
             prioridade: priority
         }]
         api.post('/task', newtarefa).then(
@@ -86,7 +87,7 @@ export default function FormTask({nameProps , dataProps , observationProps, prio
                         fullWidth
                     >
                         <MenuItem value={'Alta'}>Alta</MenuItem>
-                        <MenuItem value={'Media'}>Média</MenuItem>
+                        <MenuItem value={'Média'}>Média</MenuItem>
                         <MenuItem value={'Baixa'}>Baixa</MenuItem>
                         <MenuItem value={'Sem importancia'}>Sem importância</MenuItem>
                     </Select>
@@ -121,7 +122,7 @@ export default function FormTask({nameProps , dataProps , observationProps, prio
                         </Alert>
                     : ''}
 
-                    <LoadingButton variant="contained" onClick={e=>{ _id != undefined ? handleUpdate() : handleSave()}} loading={isLoading} fullWidth>
+                    <LoadingButton variant="contained" onClick={e=>{ _id != undefined ? handleUpdate() : handleSave()}} loading={isLoading}>
                         <IconProvider icon={'fluent:save-24-regular'} sx={{mr:2}}/>
                         Salvar
                     </LoadingButton>

@@ -13,7 +13,7 @@ const linkList = [
   },
   {
     label:'',
-    title: 'Tarefas',
+    title: 'Agenda',
     path: '/tarefas',
     icon: 'mingcute:alarm-1-line',
   },
@@ -25,7 +25,7 @@ const linkList = [
   },
   {
     label:'',
-    title: 'Mood Tracker',
+    title: 'Diário',
     path: '/mood-tracker',
     icon: 'mingcute:moon-stars-line',
   },

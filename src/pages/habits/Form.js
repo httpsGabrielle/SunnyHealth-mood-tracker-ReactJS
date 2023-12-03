@@ -17,6 +17,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker, renderTimeViewClock } from "@mui/x-date-pickers";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { grey, lightGreen } from "@mui/material/colors";
+import secureLocalStorage from "react-secure-storage";
 
 // ----------------------------------------------------------------
 export default function FormHabits({ name, iconProps }){
@@ -54,7 +55,7 @@ export default function FormHabits({ name, iconProps }){
     function handleSave(){
         setLoading(true)
         const newtarefa = [{
-            related_user: sessionStorage.getItem('secret'),
+            related_user: secureLocalStorage.getItem('secret'),
             name: habitName,
             date: new Date(),
             icon: {

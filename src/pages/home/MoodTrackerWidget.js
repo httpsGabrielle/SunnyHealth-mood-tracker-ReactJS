@@ -9,6 +9,7 @@ import IconProvider from '../../components/IconProvider'
 
 import { blue, yellow, lightGreen, deepPurple, pink } from '@mui/material/colors';
 import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
+import secureLocalStorage from "react-secure-storage";
 
 // ----------------------------------------------------------------
 
@@ -25,7 +26,7 @@ export default function MoodTrackerWidget(){
 
     function getNotes(){
         setLoading(true)
-        api.get(`/moodtracker/${sessionStorage.getItem('secret')}?limit=4`).then(
+        api.get(`/moodtracker/${secureLocalStorage.getItem('secret')}?limit=4`).then(
             response => {
                 setLoading(false)
                 const moodList = response.data.map((list)=>({
@@ -46,7 +47,7 @@ export default function MoodTrackerWidget(){
     return (
         <>
             <Card sx={{p: 2}}>
-                <Typography variant="h1">Bem vindo, {sessionStorage.getItem('nickname')}!</Typography>
+                <Typography variant="h1">Bem vindo, {secureLocalStorage.getItem('nickname')}!</Typography>
                 <Typography variant="subtitle1">Como está se sentindo hoje?</Typography>
                 <Grid container spacing={3} sx={{mt: 1}}>
                     <Grid item>

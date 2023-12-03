@@ -9,6 +9,7 @@ import IconProvider from '../../components/IconProvider'
 import FormHabits from './Form'
 import Habits from "./Habits";
 import PieCharts from "../../components/chats/PieCharts"
+import secureLocalStorage from "react-secure-storage";
 
 // ----------------------------------------------------------------
 
@@ -150,7 +151,7 @@ export default function HabitsList(){
 
     function getHabitsList(){
         setLoading(true)
-        api.get(`/habits/${sessionStorage.getItem('secret')}`).then(
+        api.get(`/habits/${secureLocalStorage.getItem('secret')}`).then(
             response => {
                 setLoading(false)
                 setHabitsList(response.data.habits)
