@@ -10,7 +10,6 @@ import Habits from './Habits';
 import TaskWidget from './TaskWidget'
 // ----------------------------------------------------------------
 
-
 export default function Home(){
     return (
         <>

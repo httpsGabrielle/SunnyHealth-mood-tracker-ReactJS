@@ -50,7 +50,7 @@ function ServerDay(props) {
   );
 }
 
-export default function Calendar({data}) {
+export default function DateCalendarServerRequest({dataProps}) {
   const requestAbortController = React.useRef(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
@@ -92,6 +92,8 @@ export default function Calendar({data}) {
     fetchHighlightedDays(date);
   };
 
+  console.log(highlightedDays)
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
@@ -104,7 +106,7 @@ export default function Calendar({data}) {
         }}
         slotProps={{
           day: {
-            highlightedDays,
+            dataProps,
           },
         }}
       />

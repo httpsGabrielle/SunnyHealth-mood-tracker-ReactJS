@@ -53,8 +53,9 @@ export default function MoodTracker(){
                 setLoading(false)
                 setNotes(response.data)
                 const dates = response.data.map((d)=>(
-                    d.createdAt
+                    new Date(d.createdAt).getDate()
                 ))
+                console.log(dates)
                 setDateList(dates)
             },
             response => {
@@ -120,7 +121,7 @@ export default function MoodTracker(){
 
                     <Grid>
                         <Card>
-                            <Calendar data={dateList}/>
+                            <Calendar dataProps={dateList}/>
                         </Card>
                     </Grid>
 
