@@ -44,7 +44,7 @@ export default function NotificationButton(){
         api.patch(`/notify/${id}`, updateNotification)
         .then(
             response =>{
-                console.log(response.data)
+                navigate(response.data.link)
             }
         )
     };
@@ -104,12 +104,21 @@ export default function NotificationButton(){
             >
                 {notifications.length > 0 ? notifications.map((notification) =>(
                     <MenuItem onClick={e=>{handleUpdateNotify(notification._id)}}>
-                        <Typography variant="h6">{notification.title}:</Typography>
-                        <Typography>{notification.text}</Typography>
+                        <ListItemIcon>
+                            <IconButton sx={{backgroundColor: '#E3DBF0', color: notification.icon.color, p: 1, borderRadius: 1, mr: 2}} >
+                                <IconProvider icon={notification.icon.name} />
+                            </IconButton>
+                        </ListItemIcon>
+                        <ListItemText>
+                            <Typography variant="h6">{notification.title}</Typography>
+                            <Typography variant="widgetsubtitle">{notification.text}</Typography>
+                        </ListItemText>
                     </MenuItem>
                 )) : 
-                    <MenuItem onClick={handleClose}>
-                        <Typography variant="h6">Ops...</Typography>
+                    <MenuItem onClick={handleClose} sx={{color: grey[400]}}>
+                        <ListItemIcon>
+                            <IconProvider icon={'mingcute:broom-line'} />
+                        </ListItemIcon>
                         <Typography>Tudo limpo por aqui</Typography>
                     </MenuItem>
                 }

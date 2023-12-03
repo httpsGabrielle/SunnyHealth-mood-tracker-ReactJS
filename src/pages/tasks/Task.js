@@ -6,7 +6,7 @@ import { grey } from "@mui/material/colors";
 
 import IconProvider from "../../components/IconProvider";
 
-import { Backdrop, Button, Card, Checkbox, CircularProgress, Divider, FormControlLabel, Grid, IconButton, Menu, MenuItem, Modal, Typography } from "@mui/material";
+import { Backdrop, Button, Card, Checkbox, Chip, CircularProgress, Divider, FormControlLabel, Grid, IconButton, Menu, MenuItem, Modal, Typography } from "@mui/material";
 
 import FormTask from './FormTask'
 
@@ -24,7 +24,7 @@ const style = {
 
 //----------------------------------------------------------------
 
-export default function Task({ date , name, complete, _id, observation }){
+export default function Task({ date , name, priority, complete, _id, observation }){
     const [isLoading, setLoading ] = useState(false)
     const [error, setError ] = useState(false)
     const [status, setStatus] = useState(complete)
@@ -103,6 +103,12 @@ export default function Task({ date , name, complete, _id, observation }){
                             }}
                         >
                             {name}
+                            <Chip 
+                                sx={{ml: 3, backgroundColor: '0.5'}}
+                                label={priority} 
+                                color={priority === 'Urgente' ? 'error' : priority === 'Importante' ? 'info' : priority === 'Moderado' ? 'warning' : 'default'} 
+                                variant={priority === 'Sem importancia' ? 'filled' : 'outlined'} 
+                            />
                         </Typography>
 
                         <Typography sx={{display: 'flex'}}>

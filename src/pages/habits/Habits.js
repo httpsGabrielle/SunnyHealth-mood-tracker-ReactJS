@@ -4,7 +4,7 @@ import { grey } from "@mui/material/colors";
 
 import IconProvider from "../../components/IconProvider";
 
-import { Backdrop, Button, Card, Modal, CircularProgress, Divider, FormControlLabel, Grid, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import { Backdrop, Button, Card, Modal, CircularProgress, Divider, FormControlLabel, Grid, IconButton, Menu, MenuItem, Typography, Box } from "@mui/material";
 
 import api from "../../services/api";
 
@@ -65,12 +65,15 @@ export default function Habits({ _id , data}){
 
     return  (
         <>
-            <Card sx={{p: 3, mb: 3}}>
+            <Card sx={{p: 3, mb: 3, border: 1, borderColor: data.icon.color}}>
 
-                <Grid container sx={{justifyContent: 'space-between'}}>
+                <Grid container sx={{justifyContent: 'space-between', alignItems: "center"}}>
 
                     <Grid item>
-                        <Grid container>
+                        <Grid container sx={{alignItems: "center"}}>
+                            <IconButton sx={{p: 1, pr: 3}}>
+                                <IconProvider icon={data.icon.name} sx={{color: data.icon.color}}/>
+                            </IconButton>
                             {data.name}
                         </Grid>
                     </Grid>

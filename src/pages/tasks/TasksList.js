@@ -48,7 +48,7 @@ export default function TasksList(){
 
                 const chartLoad = [
                     { label: 'Tarefas Completas', value: response.data.completedTasksCount, color: '#7C4AFF' },
-                    { value: response.data.incompleteTasksCount, color: '#fff' },
+                    { label: 'Tarefas Incompletas', value: response.data.incompleteTasksCount, color: '#fff' },
                 ];
                 setChartValue(chartLoad)
                 setLoading(false)
@@ -116,7 +116,7 @@ export default function TasksList(){
 
                     <Grid item xs={12} lg={8}>
                         {taskList.map((task)=>(
-                            <Task date={new Date(task.date)} name={task.name} complete={task.complete} _id={task._id} observation={task.observation}/>
+                            <Task date={new Date(task.date)} name={task.name} priority={task.priority} complete={task.complete} _id={task._id} observation={task.observation}/>
                         ))}
                     </Grid>
 

@@ -33,11 +33,12 @@ export default function FormTask({nameProps , dataProps , observationProps, prio
         setLoading(true)
         const newtarefa = [{
             name: taskName,
-            date: date['$d'],
+            date: date['$d'] != undefined ? date['$d'] : date,
             observation: observation,
             related_user: secureLocalStorage.getItem('secret'),
-            prioridade: priority
+            priority: priority
         }]
+        console.log(newtarefa)
         api.post('/task', newtarefa).then(
             response => {
                 setLoading(false)
@@ -86,9 +87,9 @@ export default function FormTask({nameProps , dataProps , observationProps, prio
                         onChange={e=>{setPriority(e.target.value)}}
                         fullWidth
                     >
-                        <MenuItem value={'Alta'}>Alta</MenuItem>
-                        <MenuItem value={'Média'}>Média</MenuItem>
-                        <MenuItem value={'Baixa'}>Baixa</MenuItem>
+                        <MenuItem value={'Urgente'}>Urgente</MenuItem>
+                        <MenuItem value={'Importante'}>Importante</MenuItem>
+                        <MenuItem value={'Moderado'}>Moderado</MenuItem>
                         <MenuItem value={'Sem importancia'}>Sem importância</MenuItem>
                     </Select>
                 </Grid>
