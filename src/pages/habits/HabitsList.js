@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import api from "../../services/api"
 
-import { Button, Card, Container, Grid, Modal, Box, Typography, Backdrop, CircularProgress } from "@mui/material";
+import { Button, Card, Container, Grid, Modal, Box, Typography, Backdrop, CircularProgress, Divider } from "@mui/material";
 
 import IconProvider from '../../components/IconProvider'
 
@@ -22,17 +22,127 @@ const style = {
     p: 3,
 };
 
+const habits = [
+    {
+        name: 'Beber 200ml de água',
+        icon: {
+            color: '#bdb2ff',
+            name: 'material-symbols:water-drop-rounded'
+        }
+    },
+    {
+        name: 'Fazer uma refeição saudável',
+        icon: {
+            color: '#bdb2ff',
+            name: 'emojione-monotone:fork-and-knife-with-plate'
+        }
+    },
+    {
+        name: 'Comer frutas e verduras',
+        icon: {
+            color: '#bdb2ff',
+            name: 'mingcute:apple-fill'
+        }
+    },
+    {
+        name: 'Dormir por 8 horas',
+        icon: {
+            color: '#ffc8dd',
+            name: 'mingcute:sleep-fill'
+        }
+    },
+    {
+        name: 'Ir dormir antes das 22h',
+        icon: {
+            color: '#ffc8dd',
+            name: 'mingcute:sleep-fill'
+        }
+    },
+    {
+        name: 'Organizar a bagunça',
+        icon: {
+            color: '#ffd670',
+            name: 'mingcute:broom-line'
+        }
+    },
+    {
+        name: 'Fazer alongamento',
+        icon: {
+            color: '#c1fba4',
+            name: 'tabler:stretching'
+        }
+    },
+    {
+        name: 'Fazer exercícios',
+        icon: {
+            color: '#c1fba4',
+            name: 'icon-park-outline:muscle'
+        }
+    },
+    {
+        name: 'Ir a academia',
+        icon: {
+            color: '#c1fba4',
+            name: 'healthicons:exercise-weights'
+        }
+    },
+    {
+        name: 'Meditar',
+        icon: {
+            color: '#a0c4ff',
+            name: 'mdi:meditation'
+        }
+    },
+    {
+        name: 'Estabelecer 3 tarefas prioritárias do dia',
+        icon: {
+            color: '#a0c4ff',
+            name: 'fluent:thinking-20-regular'
+        }
+    },
+    {
+        name: 'Refletir sobre o dia',
+        icon: {
+            color: '#a0c4ff',
+            name: 'fluent:thinking-20-regular'
+        }
+    },
+    {
+        name: 'Estudar',
+        icon: {
+            color: '#a0c4ff',
+            name: 'uil:book-open'
+        }
+    },
+]
+
+
 // ----------------------------------------------------------------
 
 export default function HabitsList(){
     const [habitsList, setHabitsList] = useState([])
     //
     const [isLoading, setLoading ] = useState(false)
+
     const [error, setError] = useState()
     //
     const [open, setOpen] = useState(false);
+
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+
+    const handleClose = () => {
+        setOpen(false)
+        setShowForm(false)
+    };
+
+    const [showForm, setShowForm] = useState(null);
+
+    const [selectedHabit, setSelectedHabit] = useState(0);
+
+    const handleSelectHabit = (i) => {
+        setSelectedHabit(i)
+        setShowForm('selected-habit')
+    };
 
     useEffect(()=>{
         getHabitsList()
@@ -88,9 +198,64 @@ export default function HabitsList(){
                                     sx={{py: 2}}
                                 >
                                     <Typography variant="h1">Novo Hábito</Typography>
-                                    <Button variant="fill"><IconProvider icon={'mingcute:close-fill'} onClick={handleClose}/></Button>
+                                    <Button variant="fill" onClick={handleClose}><IconProvider icon={'mingcute:close-fill'} /></Button>
                                 </Grid>
-                                <FormHabits/>
+                                { showForm === 'selected-habit' ?
+                                    <FormHabits name={habits[selectedHabit].name} iconProps={habits[selectedHabit].icon}/> 
+                                : showForm === 'new-custom-habit' ? 
+                                    <FormHabits/> 
+                                : 
+                                    <>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                        >
+                                            <Button variant="contained" sx={{borderRadius: 5, px: 6}} onClick={e=>{setShowForm('new-custom-habit')}}>Criar um hábito customizado</Button>
+                                        </Grid>
+                                        <Divider sx={{my: 2}}><Typography variant="submenu" sx={{fontSize: 18}}>ou</Typography></Divider>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            sx={{
+                                                height: 300,
+                                                overflowY: 'scroll'
+                                            }}
+                                        >
+                                            {habits.map((habit, i)=>(
+                                                <Grid 
+                                                    container
+                                                    direction="row"
+                                                    alignItems="center"
+                                                    sx={{
+                                                        border: 1,
+                                                        borderColor: habit.icon.color,
+                                                        borderRadius: 2,
+                                                        mb: 2 
+                                                    }}
+                                                    onClick={e=>{handleSelectHabit(i)}}
+                                                >
+                                                    <Box
+                                                        sx={{
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            alignItems: 'center',
+                                                            width: 80,
+                                                            height: 80,
+                                                            color: habit.icon.color,
+                                                        }}
+                                                    >
+                                                        <IconProvider icon={habit.icon.name} width={36}/>
+                                                    </Box>
+                                                    <Typography>{habit.name}</Typography>
+                                                </Grid>
+                                            ))}
+                                        </Grid>
+                                    </>
+                                }
                             </Card>
                         </Modal>
                     </Grid>

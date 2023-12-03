@@ -19,15 +19,15 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { grey, lightGreen } from "@mui/material/colors";
 
 // ----------------------------------------------------------------
-export default function FormHabits(){
+export default function FormHabits({ name, iconProps }){
     const [isLoading, setLoading ] = useState()
     const [error, setError] = useState()
     //
-    const [habitName, setHabitName] = useState()
+    const [habitName, setHabitName] = useState(name ?? '')
     const [weekdaysRepetion, setWeekdaysRepetion] = useState([])
-    const [selectedTurno, setSelectedTurno] = useState('Qualquer Turno')
-    const [icon, setIcon] = useState('mingcute:alarm-1-line')
-    const [iconColor, setIconColor] = useState('#ffc8dd')
+    const [selectedTurno, setSelectedTurno] = useState('Qualquer turno')
+    const [icon, setIcon] = useState(iconProps?.name ?? 'mingcute:alarm-1-line')
+    const [iconColor, setIconColor] = useState(iconProps?.color ?? '#ffc8dd')
 
     const [weekdays, setWeekdays] = useState([
         {day: 'Domingo', selected: false},
@@ -117,9 +117,10 @@ export default function FormHabits(){
         'mingcute:umbrella-2-line',
         'mingcute:yinyang-line',
         'mingcute:tree-3-fill',
-        'mingcute:pray-line',
+        'mingcute:lotus-line',
         'mingcute:bike-fill',
         'icon-park-outline:muscle',
+        'healthicons:exercise-weights',
         'mingcute:run-fill',
         'fluent:run-16-filled',
         'uil:book-open',
@@ -138,7 +139,7 @@ export default function FormHabits(){
 
                 <Grid item xs={12}>
                     <Typography sx={{pb:2}}>Nome</Typography>
-                    <TextField variant="outlined" fullWidth multiline onChange={e=>{setHabitName(e.target.value)}} placeholder="Ex. Estudar novo idioma"/>
+                    <TextField variant="outlined" fullWidth multiline value={habitName} onChange={e=>{setHabitName(e.target.value)}} placeholder="Ex. Estudar novo idioma"/>
                 </Grid>
 
                 <Grid item xs={2}>
@@ -286,17 +287,18 @@ export default function FormHabits(){
                     </Grid>
                 </Grid>
                 
-                <Grid item>
+                <Grid item xs={12}>
+                    <LoadingButton variant="contained" onClick={e=>{handleSave()}} loading={isLoading} fullWidth sx={{mb: 2}}>
+                        <IconProvider icon={'fluent:save-24-regular'} sx={{mr:2}}/>
+                        Salvar
+                    </LoadingButton>
+                    
                     {error ? 
                         <Alert variant="outlined" severity="error">
                             {error}
                         </Alert>
                     : ''}
 
-                    <LoadingButton variant="contained" onClick={e=>{handleSave()}} loading={isLoading}>
-                        <IconProvider icon={'fluent:save-24-regular'} sx={{mr:2}}/>
-                        Salvar
-                    </LoadingButton>
                 </Grid>
             </Grid>
         </>

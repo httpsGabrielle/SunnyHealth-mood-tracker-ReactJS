@@ -86,7 +86,7 @@ export default function FormTask({nameProps , dataProps , observationProps, prio
                         fullWidth
                     >
                         <MenuItem value={'Alta'}>Alta</MenuItem>
-                        <MenuItem value={'Média'}>Média</MenuItem>
+                        <MenuItem value={'Media'}>Média</MenuItem>
                         <MenuItem value={'Baixa'}>Baixa</MenuItem>
                         <MenuItem value={'Sem importancia'}>Sem importância</MenuItem>
                     </Select>
@@ -121,7 +121,7 @@ export default function FormTask({nameProps , dataProps , observationProps, prio
                         </Alert>
                     : ''}
 
-                    <LoadingButton variant="contained" onClick={e=>{ _id != undefined ? handleUpdate() : handleSave()}} loading={isLoading}>
+                    <LoadingButton variant="contained" onClick={e=>{ _id != undefined ? handleUpdate() : handleSave()}} loading={isLoading} fullWidth>
                         <IconProvider icon={'fluent:save-24-regular'} sx={{mr:2}}/>
                         Salvar
                     </LoadingButton>
