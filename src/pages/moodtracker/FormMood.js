@@ -30,26 +30,31 @@ const listMood = [
     {
         "name": "Fantastico",
         "value": "fantastico",
+        "icon": "iconoir:emoji-talking-happy",
         "img": fantastic
     },
     {
         "name": "Feliz",
         "value": "feliz",
+        "icon": "ant-design:smile-outlined",
         "img": happy
     },
     {
         "name": "OK",
         "value": "OK",
+        "icon": "ant-design:meh-outlined",
         "img": soso
     },
     {
         "name": "Cansado",
         "value": "cansado",
+        "icon": "fluent-emoji-high-contrast:sleeping-face",
         "img": tired
     },
     {
         "name": "Triste",
         "value": "triste",
+        "icon": "ant-design:frown-outlined",
         "img": sad
     }
 ]
@@ -59,7 +64,10 @@ export default function FormMood(){
     const [isLoading, setLoading ] = useState()
     const [error, setError] = useState()
     //
+    const [icon, setIcon] = useState()
+
     const [mood, setMood] = useState()
+
     const [observation, setObservation] = useState()
 
     function handleSave(){
@@ -67,6 +75,7 @@ export default function FormMood(){
         const newmood = [{
             text: observation,
             mood: mood,
+            icon: icon,
             related_user: secureLocalStorage.getItem('secret')
         }]
         console.log(newmood)
@@ -110,7 +119,7 @@ export default function FormMood(){
                             }
                             alt="Fantastic items "
                             src={items.img}
-                            onClick={()=>{setMood(items.value)}}
+                            onClick={()=>{setMood(items.value);setIcon(items.icon)}}
                         />
                         <Typography sx={{textAlign: "center"}}>{items.name}</Typography>
                     </Grid>

@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+import IconProvider from '../../components/IconProvider';
 
 function getRandomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -31,7 +32,8 @@ function fakeFetch(date, { signal }) {
   });
 }
 
-const initialValue = dayjs('2022-04-17');
+const initialValue = dayjs(new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }));
+
 
 function ServerDay(props) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
@@ -43,40 +45,36 @@ function ServerDay(props) {
     <Badge
       key={props.day.toString()}
       overlap="circular"
-      badgeContent={isSelected ? '🌚' : undefined}
+      badgeContent={isSelected ? <IconProvider icon={'majesticons:pin'} sx={{color: '#bdb2ff', p: 0.5}}/> : undefined}
     >
       <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
     </Badge>
   );
 }
 
-export default function DateCalendarServerRequest({dataProps}) {
+export default function Calendar({ highlightedDaysProp, days }) {
   const requestAbortController = React.useRef(null);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
+  const [highlightedDays, setHighlightedDays] = React.useState(
+    highlightedDaysProp || [] // Use os valores da prop ou um array vazio como padrão
+  );
 
   const fetchHighlightedDays = (date) => {
     const controller = new AbortController();
-    fakeFetch(date, {
-      signal: controller.signal,
-    })
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        // ignore the error if it's caused by `controller.abort`
-        if (error.name !== 'AbortError') {
-          throw error;
-        }
-      });
+    
+    const daysToHighlight = highlightedDaysProp || [1, 2, 15];
+
+    setTimeout(() => {
+      setHighlightedDays(daysToHighlight);
+      setIsLoading(false);
+    }, 500);
 
     requestAbortController.current = controller;
   };
 
   React.useEffect(() => {
     fetchHighlightedDays(initialValue);
-    // abort request on unmount
+    // Aborta a requisição ao desmontar
     return () => requestAbortController.current?.abort();
   }, []);
 
@@ -87,12 +85,12 @@ export default function DateCalendarServerRequest({dataProps}) {
       requestAbortController.current.abort();
     }
 
+    console.log(date)
+
     setIsLoading(true);
     setHighlightedDays([]);
     fetchHighlightedDays(date);
   };
-
-  console.log(highlightedDays)
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -106,7 +104,7 @@ export default function DateCalendarServerRequest({dataProps}) {
         }}
         slotProps={{
           day: {
-            dataProps,
+            highlightedDays,
           },
         }}
       />

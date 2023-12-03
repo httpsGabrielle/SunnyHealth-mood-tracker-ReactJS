@@ -81,9 +81,10 @@ export default function Achievements(){
                         alignItems="center"
                         justifyContent="flex-start"
                         sx={{boxShadow: 2, my: 2, p: 1}}
+                        flexWrap='nowrap'
                     >
                         <FormControlLabel control={<Checkbox checked={task.complete} onChange={e=>{handleCompleteTask(task._id, task.complete)}}/>}/>
-                        <Grid>
+                        <Grid item>
                             <Typography variant="h3" sx={{textDecoration: task.complete ? 'line-through' : 'none'}}>{task.name}</Typography>
                             <Typography variant="subtitle3">
                                 <IconProvider icon={'mingcute:calendar-2-line'} width={'14'} sx={{mr: 1}}/>

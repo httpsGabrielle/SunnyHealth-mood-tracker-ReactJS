@@ -11,7 +11,6 @@ export default function Notes({note}){
                     <Grid sx={{pr: 2}}>
                         <Box 
                             sx={{
-                                backgroundColor: palette.warning.light,
                                 borderRadius: '50%',
                                 height: 48,
                                 width: 48,
@@ -21,7 +20,7 @@ export default function Notes({note}){
                                 alignItems: 'center'
                             }}
                         >
-                            <IconProvider icon={'quill:user-happy'}/>
+                            <IconProvider icon={note.icon ?? 'ant-design:smile-outlined'}/>
                         </Box>
                     </Grid>
                     <Grid>
