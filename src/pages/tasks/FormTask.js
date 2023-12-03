@@ -10,7 +10,7 @@ import tired from '../../components/assets/moods/tired.jpg'
 import soso from '../../components/assets/moods/soso.jpg'
 
 // mui
-import { Card, Typography, Grid, Button, Box, TextField, Alert } from "@mui/material";
+import { Card, Typography, Grid, Button, Box, TextField, Alert, MenuItem, Select, InputLabel } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -19,13 +19,14 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from "dayjs";
 
 // ----------------------------------------------------------------
-export default function FormTask({nameProps , dataProps , observationProps, _id }){
+export default function FormTask({nameProps , dataProps , observationProps, priorityProps, _id }){
     const [isLoading, setLoading ] = useState()
     const [error, setError] = useState()
     //
     const [taskName, setTaskName] = useState(nameProps ?? '')
     const [date, setDate] = useState(dataProps ?? new Date())
     const [observation, setObservation] = useState(observationProps ?? '')
+    const [priority, setPriority] = useState(priorityProps ?? 'Sem importancia')
 
     function handleSave(){
         setLoading(true)
@@ -33,7 +34,8 @@ export default function FormTask({nameProps , dataProps , observationProps, _id 
             name: taskName,
             date: date['$d'],
             observation: observation,
-            related_user: sessionStorage.getItem('secret')
+            related_user: sessionStorage.getItem('secret'),
+            prioridade: priority
         }]
         api.post('/task', newtarefa).then(
             response => {
@@ -53,6 +55,7 @@ export default function FormTask({nameProps , dataProps , observationProps, _id 
             name: taskName,
             date: date['$d'],
             observation: observation,
+            prioridade: priority
         }]
         api.patch(`/task/${_id}`, upcommingtask).then(
             response => {
@@ -73,6 +76,20 @@ export default function FormTask({nameProps , dataProps , observationProps, _id 
                 <Grid item xs={12}>
                     <Typography sx={{pb:2}}>Nome da tarefa</Typography>
                     <TextField variant="outlined" fullWidth multiline value={taskName} onChange={e=>{setTaskName(e.target.value)}}/>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Typography sx={{pb:2}}>Prioridade</Typography>
+                    <Select
+                        value={priority}
+                        onChange={e=>{setPriority(e.target.value)}}
+                        fullWidth
+                    >
+                        <MenuItem value={'Alta'}>Alta</MenuItem>
+                        <MenuItem value={'Média'}>Média</MenuItem>
+                        <MenuItem value={'Baixa'}>Baixa</MenuItem>
+                        <MenuItem value={'Sem importancia'}>Sem importância</MenuItem>
+                    </Select>
                 </Grid>
 
                 <Grid item xs={12}>
