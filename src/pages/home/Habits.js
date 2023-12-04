@@ -3,16 +3,30 @@ import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import secureLocalStorage from "react-secure-storage";
+
 import api from "../../services/api";
 
 import IconProvider from '../../components/IconProvider' 
 
 import { blue, yellow, lightGreen, deepPurple, pink, grey, purple } from '@mui/material/colors';
+
 import { Box, Button, Card, Checkbox, Container, FormControlLabel, Grid, Menu, MenuItem, Typography } from "@mui/material";
 
 // ----------------------------------------------------------------
 
 export default function Habits(){
+    const [habitList, setHabitList] = useState([])
+
+    useEffect(()=>{
+        api.get(`/habits/${secureLocalStorage.getItem('secret')}`)
+        .then(
+            response => {
+                setHabitList(response.data.habits)
+            }
+        )
+    }, [])
+
     return (
         <>
             <Card 
@@ -39,20 +53,28 @@ export default function Habits(){
                                 container 
                                 direction="row"
                                 alignItems="center"
+                                columnSpacing={2}
                             >
-                                <Grid item xs={8} sx={{border: 1, borderRadius: 2, borderColor: grey['200'], p: 2}}>
-                                    <Grid container spacing={2}>
-                                        <Grid item>
-                                            <IconProvider icon={'lucide:cloud-sun'}/> 
+                                {habitList.map((habit)=>(
+                                    <>
+                                        <Grid item xs={12} sx={{border: 1, borderRadius: 2, borderColor: grey['200'], p: 2, m:2 }}>
+                                            <Grid 
+                                                container
+                                                direction="row"
+                                                justifyContent="space-between"
+                                                alignItems="center"
+                                            >
+                                                <Grid item>
+                                                    <IconProvider icon={habit.icon.name} sx={{mr: 3, color: habit.icon.color}}/>
+                                                    {habit.name}
+                                                </Grid>
+                                                <Grid item>
+                                                    <FormControlLabel control={<Checkbox value/>} label="Completar"/>
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item>
-                                            Comer vegetais
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item sx={{p:5}}>
-                                    <FormControlLabel control={<Checkbox />} label="Completar"/>
-                                </Grid>
+                                    </>
+                                ))}
                             </Grid>
                         </>
                 </Grid>

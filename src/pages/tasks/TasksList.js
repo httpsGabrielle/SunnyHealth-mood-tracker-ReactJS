@@ -96,7 +96,7 @@ export default function TasksList(){
                                     sx={{py: 2}}
                                 >
                                     <Typography variant="h1">Nova Tarefa</Typography>
-                                    <Button variant="fill"><IconProvider icon={'mingcute:close-fill'} onClick={handleClose}/></Button>
+                                    <Button variant="fill" onClick={handleClose}><IconProvider icon={'mingcute:close-fill'}/></Button>
                                 </Grid>
                                 <FormTask/>
                             </Card>

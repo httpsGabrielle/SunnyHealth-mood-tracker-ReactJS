@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 // mui 
-import { Badge, Divider, Grid, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from "@mui/material";
+import { Backdrop, Badge, CircularProgress, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from "@mui/material";
 
 //components
 import IconProvider from "../../../components/IconProvider";
@@ -15,6 +15,7 @@ import api from "../../../services/api";
 // ----------------------------------------------------------------
 
 export default function NotificationButton(){
+    const [isLoading, setLoading ] = useState(false)
 
     const navigate = useNavigate()
 
@@ -38,12 +39,15 @@ export default function NotificationButton(){
     }, [])
 
     const handleUpdateNotify = (id) => {
+        setLoading(true)
         const updateNotification = [{
             read: true
         }]
         api.patch(`/notify/${id}`, updateNotification)
         .then(
             response =>{
+                setLoading(false)
+                getNotification()
                 navigate(response.data.link)
             }
         )
@@ -54,17 +58,19 @@ export default function NotificationButton(){
         .then(
             response =>{
                 setNotifications(response.data)
+                console.log(response.data)
             }
         )
     }
 
     return(
         <>
-            <Badge badgeContent={notifications.length} color="primary" overlap="circular">
+            <Badge badgeContent={notifications.length} color="primary" overlap="circular" onClick={e=>{getNotification()}}>
                 <IconButton sx={{ borderColor: grey[100], boxShadow: 1}} onClick={handleClick} >
                     <IconProvider icon={'mingcute:notification-line'}/>
                 </IconButton>
             </Badge>
+
             <Menu
                 id="demo-positioned-menu"
                 aria-labelledby="demo-positioned-button"
@@ -105,12 +111,13 @@ export default function NotificationButton(){
                 {notifications.length > 0 ? notifications.map((notification) =>(
                     <MenuItem onClick={e=>{handleUpdateNotify(notification._id)}}>
                         <ListItemIcon>
-                            <IconButton sx={{backgroundColor: '#E3DBF0', color: notification.icon.color, p: 1, borderRadius: 1, mr: 2}} >
+                            <IconButton sx={{ color: notification.icon.color, p: 1}} onClick={e=>{handleUpdateNotify(notification._id)}}>
                                 <IconProvider icon={notification.icon.name} />
                             </IconButton>
                         </ListItemIcon>
                         <ListItemText>
-                            <Typography variant="h6">{notification.title}</Typography>
+                            <Typography variant="bold">{notification.title}</Typography>
+                            <br/>
                             <Typography variant="widgetsubtitle">{notification.text}</Typography>
                         </ListItemText>
                     </MenuItem>
@@ -123,6 +130,13 @@ export default function NotificationButton(){
                     </MenuItem>
                 }
             </Menu>
+
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={isLoading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </>
     )
 }
