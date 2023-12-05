@@ -29,13 +29,13 @@ export default function Achievements(){
         getProfile()
     }, [])
 
-    function getProfile(){
+    function getProfile(){ 
         api.get(`/usuario/${secureLocalStorage.getItem('secret')}`)
         .then(
             response => {
                 console.log(response.data)
                 setColor(response.data.avatar.color_01)
-                setColor(response.data.avatar.color_02)
+                setSecondary(response.data.avatar.color_02)
                 setPattern(response.data.avatar.pattern)
                 setTail(response.data.avatar.tail)
             }

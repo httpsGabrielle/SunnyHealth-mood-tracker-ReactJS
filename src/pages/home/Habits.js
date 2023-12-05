@@ -16,6 +16,8 @@ import { Box, Button, Card, Checkbox, Container, FormControlLabel, Grid, Menu, M
 // ----------------------------------------------------------------
 
 export default function Habits(){
+    const navigate = useNavigate()
+
     const [habitList, setHabitList] = useState([])
 
     useEffect(()=>{
@@ -83,6 +85,7 @@ export default function Habits(){
                         fullWidth
                         variant="outlined"
                         sx={{borderRadius: '100px', alignSelf: 'flex-end'}}
+                        onClick={e=>{navigate('/habitos')}}
                     >
                         Novo hábito
                     </Button>

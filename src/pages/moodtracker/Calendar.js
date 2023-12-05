@@ -56,7 +56,7 @@ export default function Calendar({ highlightedDaysProp, days }) {
   const requestAbortController = React.useRef(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [highlightedDays, setHighlightedDays] = React.useState(
-    highlightedDaysProp || [] // Use os valores da prop ou um array vazio como padrão
+    highlightedDaysProp
   );
 
   const fetchHighlightedDays = (date) => {
@@ -85,7 +85,6 @@ export default function Calendar({ highlightedDaysProp, days }) {
       requestAbortController.current.abort();
     }
 
-    console.log(date)
 
     setIsLoading(true);
     setHighlightedDays([]);
