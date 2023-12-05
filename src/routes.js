@@ -37,9 +37,9 @@ export default function Router() {
           {path: '/habitos', element: <HabitsList/>},
           {path: '/profile', element: <Profile/>},
           {path: '/profile/Achievements', element: <Achievements/>},
-          {path: '/settings', element: <Settings/>}
         ]
-      }
+      },
+      {path: '/terms', element: <Settings/>}
     ]);
   
     return routes;
