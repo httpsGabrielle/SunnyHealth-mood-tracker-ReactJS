@@ -137,7 +137,7 @@ export default function Profile(){
             response => {
                 console.log(response.data)
                 setColor(response.data.avatar.color_01)
-                setColor(response.data.avatar.color_02)
+                setSecondary(response.data.avatar.color_02)
                 setPattern(response.data.avatar.pattern)
                 setTail(response.data.avatar.tail)
             }
