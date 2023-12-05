@@ -1,8 +1,9 @@
-import { Badge, Button, Card, Container, Grid, Tooltip, Typography } from "@mui/material";
+import { Badge, Button, Card, Container, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 
 import { grey } from "@mui/material/colors";
 
 import IconProvider from "../../components/IconProvider"
+import { useNavigate } from "react-router-dom";
 /// ----------------------------------------------------------------
 
 const conquistas = [
@@ -89,8 +90,15 @@ const conquistas = [
 ]
 
 export default function Achievements(){
+
+    const navigate = useNavigate()
+
     return (
         <>
+            <IconButton sx={{mb: 3}} onClick={e=>{navigate('/profile')}}>
+                <IconProvider icon={'mingcute:arrow-left-fill'}/>
+            </IconButton>
+
             <Container>
 
                 <Typography variant="h1">Conquistas</Typography>

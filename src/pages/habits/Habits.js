@@ -119,7 +119,7 @@ export default function Habits({ _id , data}){
                         <Typography variant="h1">Novo Hábito</Typography>
                         <Button variant="fill" onClick={handleCloseModal}><IconProvider icon={'mingcute:close-fill'} /></Button>
                     </Grid>
-                    <Form name={data.name} iconProps={data.icon}/>
+                    <Form name={data.name} iconProps={data.icon} data={data}/>
                 </Card>
             </Modal>
 

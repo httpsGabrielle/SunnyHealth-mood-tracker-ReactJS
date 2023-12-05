@@ -35,19 +35,19 @@ const typography = {
     fontWeight: 700,
     lineHeight: 80 / 64,
     fontSize: pxToRem(18),
-    ...responsiveFontSizes({ sm: 52, md: 24, lg: 24 }),
+    ...responsiveFontSizes({ sm: 24, md: 24, lg: 24 }),
   },
   h2: {
     fontWeight: 700,
     lineHeight: 64 / 48,
     fontSize: pxToRem(16),
-    ...responsiveFontSizes({ sm: 40, md: 16, lg: 18 }),
+    ...responsiveFontSizes({ sm: 16, md: 16, lg: 18 }),
   },
   h3: {
     fontWeight: 600,
     lineHeight: 1.5,
     fontSize: pxToRem(16),
-    ...responsiveFontSizes({ sm: 26, md: 16, lg: 16 }),
+    ...responsiveFontSizes({ sm: 16, md: 16, lg: 16 }),
   },
   h4: {
     fontWeight: 600,

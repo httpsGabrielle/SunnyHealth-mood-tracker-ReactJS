@@ -6,6 +6,11 @@ import Icon  from './../../components/assets/avatar/icon.svg'
  
 import { Box, Card, Grid, Typography } from "@mui/material";
 
+import Miniature from "../../components/assets/avatar/Miniature";
+
+import api from "../../services/api";
+import secureLocalStorage from "react-secure-storage";
+
 //----------------------------------------------------------------
 
 export default function Achievements(){
@@ -15,7 +20,12 @@ export default function Achievements(){
     const [user, setUser] = useState([]) 
 
     useEffect(()=>{
-
+        api.get(`/usuario/${secureLocalStorage.getItem('secret')}`)
+        .then(
+            response => {
+                setUser(response.data)
+            }
+        )
     }, [])
 
     return (
@@ -26,17 +36,10 @@ export default function Achievements(){
                     direction="column"
                     justifyContent="center"
                     alignItems="center"
+                    onClick={e=> {navigate('/profile')}}
                 >
                     <Typography sx={{p:1}}>Perfil</Typography>
-                    <Box
-                        component="img"
-                        sx={{
-                            height: 150
-                        }}
-                        alt="Avatar Icon."
-                        src={Icon}
-                        onClick={e=> {navigate('/profile')}}
-                    />
+                    <Miniature color={user}/>
                 </Grid>
             </Card>
         </>

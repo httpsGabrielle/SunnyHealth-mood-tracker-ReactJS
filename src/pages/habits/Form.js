@@ -20,13 +20,13 @@ import { grey, lightGreen } from "@mui/material/colors";
 import secureLocalStorage from "react-secure-storage";
 
 // ----------------------------------------------------------------
-export default function FormHabits({ name, iconProps }){
+export default function FormHabits({ name, iconProps, data }){
     const [isLoading, setLoading ] = useState()
     const [error, setError] = useState()
     //
     const [habitName, setHabitName] = useState(name ?? '')
-    const [weekdaysRepetion, setWeekdaysRepetion] = useState([])
-    const [selectedTurno, setSelectedTurno] = useState('Qualquer turno')
+    const [weekdaysRepetion, setWeekdaysRepetion] = useState(data.weekdays ?? [])
+    const [selectedTurno, setSelectedTurno] = useState(data.hour ?? 'Qualquer turno')
     const [icon, setIcon] = useState(iconProps?.name ?? 'mingcute:alarm-1-line')
     const [iconColor, setIconColor] = useState(iconProps?.color ?? '#ffc8dd')
 
@@ -65,7 +65,6 @@ export default function FormHabits({ name, iconProps }){
             weekdays: weekdays,
             hour: selectedTurno
         }]
-        console.log(newtarefa)
         api.post('/habits', newtarefa).then(
             response => {
                 setLoading(false)
@@ -73,7 +72,34 @@ export default function FormHabits({ name, iconProps }){
             },
             err => {
                 setLoading(false)
-                setError(err.response.data?.message ?? 'Ocorreu um erro, tente novamente mais tarde')
+                setError(err.response?.data?.message ?? 'Ocorreu um erro, tente novamente mais tarde')
+            }
+        )
+    }
+
+    function handleUpdate(){
+        setLoading(true)
+        const newtarefa = [{
+            related_user: secureLocalStorage.getItem('secret'),
+            name: habitName,
+            date: new Date(),
+            icon: {
+                color: iconColor,
+                name: icon
+            },
+            weekdays: weekdays,
+            hour: selectedTurno
+        }]
+        console.log(newtarefa)
+
+        api.patch(`/habit/${data._id}`, newtarefa).then(
+            response => {
+                setLoading(false)
+                window.location.reload()
+            },
+            err => {
+                setLoading(false)
+                setError(err.response?.data?.message ?? 'Ocorreu um erro, tente novamente mais tarde')
             }
         )
     }
@@ -289,7 +315,7 @@ export default function FormHabits({ name, iconProps }){
                 </Grid>
                 
                 <Grid item xs={12}>
-                    <LoadingButton variant="contained" onClick={e=>{handleSave()}} loading={isLoading} fullWidth sx={{mb: 2}}>
+                    <LoadingButton variant="contained" onClick={e=>{name ? handleUpdate() : handleSave()}} loading={isLoading} fullWidth sx={{mb: 2}}>
                         <IconProvider icon={'fluent:save-24-regular'} sx={{mr:2}}/>
                         Salvar
                     </LoadingButton>

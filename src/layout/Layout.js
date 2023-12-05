@@ -21,10 +21,10 @@ export default function Layout(){
         }
     }, [])
 
-    return(
+    return( 
         <Grid container sx={{minWidth: '100%'}} columnSpacing={3} >
             <Menu/>
-            <Grid xs sx={{p: 3}}>
+            <Grid xs sx={{p: 3, width: {lg: 0}}}>
                 <Header/>
                 <Outlet/>
             </Grid>

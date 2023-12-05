@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 // mui 
 import { grey } from "@mui/material/colors";
 
-import { Divider, Grid, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
+import { Container, Divider, Grid, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 
 //components
 import IconProvider from "../../components/IconProvider";
@@ -12,6 +12,8 @@ import IconProvider from "../../components/IconProvider";
 import SettingsButton from "./items/SettingsButton";
 
 import NotificationButton from "./items/NotificationButton";
+
+import MenuSm from "./items/MenuSm";
 
 import secureLocalStorage from "react-secure-storage";
 
@@ -39,15 +41,20 @@ export default function Header(){
     };
 
     return(
-        <Grid item xs={10}>
-            <Grid container sx={{justifyContent: 'end'}} spacing={1}>
-                <Grid item>
-                    <NotificationButton/>
+        <Grid item>
+            <Container>
+                <Grid container sx={{justifyContent: 'end'}} spacing={1}>
+                    <Grid item sx={{display: {sm: 'block', md: 'none'}}}>
+                        <MenuSm/>
+                    </Grid>
+                    <Grid item>
+                        <NotificationButton/>
+                    </Grid>
+                    <Grid item>
+                        <SettingsButton />
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <SettingsButton />
-                </Grid>
-            </Grid>
+            </Container>
         </Grid>
     )
 }

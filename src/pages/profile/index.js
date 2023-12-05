@@ -15,12 +15,42 @@ import { Container } from "@mui/system";
 // ----------------------------------------------------------------
 
 const colors = [ 
-    '#DFD7D7',
-    '#939393',
-    '#323232',
-    '#FF8A00',
-    '#C98C58',
-    '#FAC1BE'
+    {
+        pattern: 'liso',
+        color_01: '#DFD7D7',
+        color_02: '#DFD7D7',
+        tail: '#DFD7D7'
+    },
+    {
+        pattern: 'liso',
+        color_01: '#939393',
+        color_02: '#939393',
+        tail: '#939393'
+    },
+    {
+        pattern: 'liso',
+        color_01: '#323232',
+        color_02: '#323232',
+        tail: '#323232'
+    },
+    {
+        pattern: 'liso',
+        color_01: '#FF8A00',
+        color_02: '#FF8A00',
+        tail: '#FF8A00'
+    },
+    {
+        pattern: 'liso',
+        color_01: '#C98C58',
+        color_02: '#C98C58',
+        tail: '#C98C58'
+    },
+    {
+        pattern: 'liso',
+        color_01: '#FAC1BE',
+        color_02: '#FAC1BE',
+        tail: '#FAC1BE'
+    }
 ]
 
 
@@ -57,7 +87,7 @@ const patterns = [
     },
     {
         pattern: 'tricolor',
-        color_01: '#DFD7D7',
+        color_01: '#fff',
         color_02: '#6F3902',
         tail: '#D9740D'
     }
@@ -123,7 +153,7 @@ export default function Profile(){
                                 {colors.map((color)=>(
                                     <Grid xs={2} item>
                                         <Box 
-                                            onClick={e=>{handleColor(color)}}
+                                            onClick={e=>{handleColor(color.color_01)}}
                                             sx={{
                                                 boxShadow: 5, 
                                                 border: 3, 
@@ -131,7 +161,7 @@ export default function Profile(){
                                                 borderRadius: 5, 
                                                 width: 32, 
                                                 height: 32, 
-                                                backgroundColor: color,
+                                                backgroundColor: color.color_01,
                                                 '&:hover': {
                                                     border: 0
                                                 }
