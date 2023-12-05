@@ -9,6 +9,7 @@ import { Backdrop, Button, Card, Modal, CircularProgress, Divider, FormControlLa
 import api from "../../services/api";
 
 import Form from './Form'
+import Conquista from "../../components/Conquista/Conquista";
 
 //----------------------------------------------------------------
 
@@ -122,6 +123,7 @@ export default function Habits({ _id , data}){
                     <Form name={data.name} iconProps={data.icon} data={data}/>
                 </Card>
             </Modal>
+
 
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

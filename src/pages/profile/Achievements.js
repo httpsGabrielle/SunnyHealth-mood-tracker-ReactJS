@@ -18,7 +18,7 @@ const conquistas = [
         'done': false
     },
     {
-        'id': 'eat-health',
+        'id': 'eat-health', 
         'title': 'Dieta',
         'description': 'Comece a fazer uma refeição saúdavel',
         'icon':{
@@ -50,7 +50,7 @@ const conquistas = [
     {
         'id': 'meditation',
         'title': 'Corpo e mente',
-        'description': 'Comece a fazer exercicios.',
+        'description': 'Faça 5 minutos de meditação.',
         'icon':{
             'icon': 'noto:flexed-biceps',
             'color': '#8EECF5'

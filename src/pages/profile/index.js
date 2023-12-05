@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -6,11 +6,16 @@ import Achievements from "../../components/assets/icon/achievements.svg";
 
 import avatar from "../../components/assets/avatar/full-body-avatar/avatar.svg";
 
-import { Box, Grid, Tooltip } from "@mui/material";
+import { Box, Button, Grid, Tooltip } from "@mui/material";
 
 import Avatar from "./Avatar";
 
 import { Container } from "@mui/system";
+
+import  IconProvider  from '../../components/IconProvider';
+import secureLocalStorage from "react-secure-storage";
+import api from "../../services/api";
+import { LoadingButton } from "@mui/lab";
 
 // ----------------------------------------------------------------
 
@@ -98,6 +103,8 @@ export default function Profile(){
 
     const navigate = useNavigate()
 
+    const [loading, setLoading] = useState(false)
+
     const [color, setColor] = useState(colors[0])
 
     const [secondary, setSecondary] = useState()
@@ -118,6 +125,42 @@ export default function Profile(){
         setSecondary(selectedPattern.color_02); 
         setPattern(selectedPattern.pattern); 
         setTail(selectedPattern.tail)
+    }
+
+    useEffect(()=>{
+        getProfile()
+    }, [])
+
+    function getProfile(){
+        api.get(`/usuario/${secureLocalStorage.getItem('secret')}`)
+        .then(
+            response => {
+                console.log(response.data)
+                setColor(response.data.avatar.color_01)
+                setColor(response.data.avatar.color_02)
+                setPattern(response.data.avatar.pattern)
+                setTail(response.data.avatar.tail)
+            }
+        )
+    }
+
+    function handleSave(){
+        setLoading(true)
+        const update = [{
+            avatar:{
+            color_01: color,
+            color_02: secondary,
+            pattern:  pattern,
+            tail: tail
+        }}]
+        api.patch(`/usuario/${secureLocalStorage.getItem('secret')}`, update)
+        .then(
+            response => {
+                console.log(response.data)
+                setLoading(false)
+
+            }
+        )
     }
 
     return (
@@ -191,6 +234,11 @@ export default function Profile(){
                                         </Grid>
                                     </Grid>
                                 ))}
+                                <Grid xs={12} item sx={{display: 'flex', justifyContent:  'flex-end', alignItems: 'end'}}>
+                                    <LoadingButton loading={loading} variant="outlined" startIcon={<IconProvider icon='basil:save-outline' />} onClick={e=>{handleSave()}}>
+                                        Salvar
+                                    </LoadingButton>
+                                </Grid>
                             </Grid>
 
                         </Grid>

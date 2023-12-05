@@ -17,16 +17,30 @@ export default function Achievements(){
 
     const navigate = useNavigate()
 
-    const [user, setUser] = useState([]) 
+    const [color, setColor] = useState()
+
+    const [secondary, setSecondary] = useState()
+
+    const [pattern, setPattern] = useState()
+
+    const [tail, setTail] = useState()
 
     useEffect(()=>{
+        getProfile()
+    }, [])
+
+    function getProfile(){
         api.get(`/usuario/${secureLocalStorage.getItem('secret')}`)
         .then(
             response => {
-                setUser(response.data)
+                console.log(response.data)
+                setColor(response.data.avatar.color_01)
+                setColor(response.data.avatar.color_02)
+                setPattern(response.data.avatar.pattern)
+                setTail(response.data.avatar.tail)
             }
         )
-    }, [])
+    }
 
     return (
         <>
@@ -39,7 +53,7 @@ export default function Achievements(){
                     onClick={e=> {navigate('/profile')}}
                 >
                     <Typography sx={{p:1}}>Perfil</Typography>
-                    <Miniature color={user}/>
+                    <Miniature color={color} secondary={secondary} pattern={pattern} tail={tail}/>
                 </Grid>
             </Card>
         </>

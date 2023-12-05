@@ -10,6 +10,7 @@ import FormHabits from './Form'
 import Habits from "./Habits";
 import PieCharts from "../../components/chats/PieCharts"
 import secureLocalStorage from "react-secure-storage";
+import Conquista from "../../components/Conquista/Conquista";
 
 // ----------------------------------------------------------------
 
@@ -286,6 +287,7 @@ export default function HabitsList(){
                 >
                     <CircularProgress color="inherit" />
                 </Backdrop>
+
 
             </Container>
         </>

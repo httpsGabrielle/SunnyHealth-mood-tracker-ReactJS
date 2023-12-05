@@ -18,17 +18,23 @@ import { DateTimePicker, renderTimeViewClock } from "@mui/x-date-pickers";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { grey, lightGreen } from "@mui/material/colors";
 import secureLocalStorage from "react-secure-storage";
+import Conquista from "../../components/Conquista/Conquista";
 
 // ----------------------------------------------------------------
 export default function FormHabits({ name, iconProps, data }){
     const [isLoading, setLoading ] = useState()
     const [error, setError] = useState()
     //
+    console.log(data)
+
     const [habitName, setHabitName] = useState(name ?? '')
-    const [weekdaysRepetion, setWeekdaysRepetion] = useState(data.weekdays ?? [])
-    const [selectedTurno, setSelectedTurno] = useState(data.hour ?? 'Qualquer turno')
+    const [weekdaysRepetion, setWeekdaysRepetion] = useState(data?.weekdays ?? [])
+    const [selectedTurno, setSelectedTurno] = useState(data?.hour ?? 'Qualquer turno')
     const [icon, setIcon] = useState(iconProps?.name ?? 'mingcute:alarm-1-line')
     const [iconColor, setIconColor] = useState(iconProps?.color ?? '#ffc8dd')
+
+    const [newconquista, setNewConquista] = useState()
+
 
     const [weekdays, setWeekdays] = useState([
         {day: 'Domingo', selected: false},
@@ -68,7 +74,27 @@ export default function FormHabits({ name, iconProps, data }){
         api.post('/habits', newtarefa).then(
             response => {
                 setLoading(false)
-                window.location.reload()
+                let conquista = {}
+                if(name.includes('Beber') || name.includes('água')){
+                    conquista.id = 'drink-water'
+                    conquista.title = 'Fique hidratado'
+                }else if (name.includes('saúdavel') || name.includes('frutas')){
+                    conquista.id = 'eat-health'
+                    conquista.title = 'Dieta'
+                }else if (name.includes('Dormir') || name.includes('dormir')){
+                    conquista.id = 'sleep'
+                    conquista.title = 'Bons sonhos'
+                }
+                
+                if(conquista){
+                    api.patch(`/add/achievements/${secureLocalStorage.getItem('secret')}`, [conquista.id])
+                    .then(
+                        response => {
+                            setNewConquista(conquista)
+                        }
+                    )
+                }
+                
             },
             err => {
                 setLoading(false)
@@ -90,7 +116,6 @@ export default function FormHabits({ name, iconProps, data }){
             weekdays: weekdays,
             hour: selectedTurno
         }]
-        console.log(newtarefa)
 
         api.patch(`/habit/${data._id}`, newtarefa).then(
             response => {
@@ -315,7 +340,7 @@ export default function FormHabits({ name, iconProps, data }){
                 </Grid>
                 
                 <Grid item xs={12}>
-                    <LoadingButton variant="contained" onClick={e=>{name ? handleUpdate() : handleSave()}} loading={isLoading} fullWidth sx={{mb: 2}}>
+                    <LoadingButton variant="contained" onClick={e=>{data ? handleUpdate() : handleSave()}} loading={isLoading} fullWidth sx={{mb: 2}}>
                         <IconProvider icon={'fluent:save-24-regular'} sx={{mr:2}}/>
                         Salvar
                     </LoadingButton>
@@ -327,6 +352,8 @@ export default function FormHabits({ name, iconProps, data }){
                     : ''}
 
                 </Grid>
+
+                {newconquista ? <Conquista conquista={newconquista}/> : ''}
             </Grid>
         </>
     )
