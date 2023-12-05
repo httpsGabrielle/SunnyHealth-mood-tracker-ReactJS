@@ -1,12 +1,23 @@
+import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
+import Icon  from './../../components/assets/avatar/icon.svg'
+ 
 import { Box, Card, Grid, Typography } from "@mui/material";
-
-import Placeholder  from './../../components/assets/avatar/placeholder.png'
 
 //----------------------------------------------------------------
 
 export default function Achievements(){
-    
+
+    const navigate = useNavigate()
+
+    const [user, setUser] = useState([]) 
+
+    useEffect(()=>{
+
+    }, [])
+
     return (
         <>
             <Card sx={{height: '100%', p: 3}}>
@@ -20,12 +31,11 @@ export default function Achievements(){
                     <Box
                         component="img"
                         sx={{
-                            height: 150,
-                            WebkitFilter: 'drop-shadow(-2px -1px 6px rgba(0, 0, 0, 0.1))',
-                            filter: 'drop-shadow(-2px -1px 5px rgba(0,0,0,0.1))',
+                            height: 150
                         }}
                         alt="Avatar Icon."
-                        src={Placeholder}
+                        src={Icon}
+                        onClick={e=> {navigate('/profile')}}
                     />
                 </Grid>
             </Card>

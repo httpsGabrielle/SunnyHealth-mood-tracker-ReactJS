@@ -10,7 +10,8 @@ import Home from './pages/home';
 import MoodTracker from './pages/moodtracker';
 import TasksList from './pages/tasks/TasksList';
 import HabitsList from './pages/habits/HabitsList'
-import Profiler from './pages/profile';
+import Profile from './pages/profile';
+import Achievements from './pages/profile/Achievements';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +34,8 @@ export default function Router() {
           {path: '/mood-tracker/:create?', element: <MoodTracker/>},
           {path: '/tarefas', element: <TasksList/>},
           {path: '/habitos', element: <HabitsList/>},
-          {path: '/profile', element: <Profiler/>}
+          {path: '/profile', element: <Profile/>},
+          {path: '/profile/Achievements', element: <Achievements/>}
         ]
       }
     ]);
