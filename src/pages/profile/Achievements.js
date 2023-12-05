@@ -4,6 +4,9 @@ import { grey } from "@mui/material/colors";
 
 import IconProvider from "../../components/IconProvider"
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import secureLocalStorage from "react-secure-storage";
+import api from "../../services/api";
 /// ----------------------------------------------------------------
 
 const conquistas = [
@@ -93,6 +96,21 @@ export default function Achievements(){
 
     const navigate = useNavigate()
 
+    const [AchievementsList, setAchievementsList] = useState([])
+
+    useEffect(()=>{
+        getProfile()
+    }, [])
+
+    function getProfile(){
+        api.get(`/usuario/${secureLocalStorage.getItem('secret')}`)
+        .then(
+            response => {
+                setAchievementsList(response.data.conquistas)
+            }
+        )
+    }
+
     return (
         <>
             <IconButton sx={{mb: 3}} onClick={e=>{navigate('/profile')}}>
@@ -110,7 +128,7 @@ export default function Achievements(){
                         {conquistas.map((conquista)=>(
                             <>
                                 <Tooltip title={conquista.description} sx={{m: 2}}>
-                                    <Badge badgeContent={conquista.done ? <IconProvider icon={'lets-icons:check-fill'} sx={{color: 'primary.main'}}/> : ''}>
+                                    <Badge badgeContent={AchievementsList.includes(conquista.id) ? <IconProvider icon={'lets-icons:check-fill'} sx={{color: 'primary.main'}}/> : ''}>
                                         <Grid 
                                             item
                                             sx={{
