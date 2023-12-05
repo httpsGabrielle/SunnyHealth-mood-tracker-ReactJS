@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import Icon  from './../../components/assets/avatar/icon.svg'
  
-import { Box, Card, Grid, Typography } from "@mui/material";
+import { Box, Card, CircularProgress, Grid, Typography } from "@mui/material";
 
 import Miniature from "../../components/assets/avatar/Miniature";
 
@@ -53,7 +53,9 @@ export default function Achievements(){
                     onClick={e=> {navigate('/profile')}}
                 >
                     <Typography sx={{p:1}}>Perfil</Typography>
-                    <Miniature color={color} secondary={secondary} pattern={pattern} tail={tail}/>
+                    {color ? 
+                        <Miniature color={color} secondary={secondary} pattern={pattern} tail={tail}/>
+                    : <CircularProgress />}
                 </Grid>
             </Card>
         </>

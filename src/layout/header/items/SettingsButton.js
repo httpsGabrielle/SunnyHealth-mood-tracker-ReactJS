@@ -78,9 +78,7 @@ export default function SettingsButton(){
             >
                 <MenuItem onClick={e=>{navigate('/profile')}}>Profile</MenuItem>
                 <MenuItem onClick={e=>{navigate('/profile/achievements')}}>Conquistas</MenuItem>
-                <Divider/>
-                <MenuItem onClick={handleClose}>Termos e condições</MenuItem>
-                <MenuItem onClick={handleClose}>Configuração</MenuItem>
+                <MenuItem onClick={e=>{navigate('/settings')}}>Termos e condições</MenuItem>
                 <Divider/>
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>

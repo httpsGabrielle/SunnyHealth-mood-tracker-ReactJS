@@ -12,6 +12,7 @@ import TasksList from './pages/tasks/TasksList';
 import HabitsList from './pages/habits/HabitsList'
 import Profile from './pages/profile';
 import Achievements from './pages/profile/Achievements';
+import Settings from './pages/profile/Settings';
 
 // ----------------------------------------------------------------------
 
@@ -35,7 +36,8 @@ export default function Router() {
           {path: '/tarefas', element: <TasksList/>},
           {path: '/habitos', element: <HabitsList/>},
           {path: '/profile', element: <Profile/>},
-          {path: '/profile/Achievements', element: <Achievements/>}
+          {path: '/profile/Achievements', element: <Achievements/>},
+          {path: '/settings', element: <Settings/>}
         ]
       }
     ]);
