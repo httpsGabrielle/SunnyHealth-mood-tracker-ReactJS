@@ -6,13 +6,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../../../services/api'
 
 // mui
-import { Typography, TextField, InputAdornment, IconButton, Grid, Alert } from '@mui/material';
+import { Typography, TextField, InputAdornment, IconButton, Grid, Alert, Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // 
 import LoginPage from '..';
 import IconProvider from '../../../components/IconProvider'
 import palette from '../../../theme/design/palette';
 import secureLocalStorage from 'react-secure-storage';
+import { grey } from '@mui/material/colors';
 
 //----------------------------------------------------------------
 
@@ -139,6 +140,9 @@ export default function SignUp(req, res, next) {
             >
                 Criar conta
             </LoadingButton>
+            <Button startIcon={<IconProvider icon={'mingcute:paper-line'} />} onClick={e=>{navigate('/terms')}} sx={{color: grey[600]}}>
+                Termos e condições 
+            </Button>
 
             {error ? 
                 <Alert variant="outlined" severity="error">

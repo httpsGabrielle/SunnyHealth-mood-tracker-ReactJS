@@ -34,7 +34,7 @@ export default function Settings(){
     return (
         <>
 
-            <Container>
+            <Container sx={{p: 5}}>
                 <Typography variant="h1">Termos e Condições</Typography>
                 <Typography variant="h2">Política Privacidade</Typography>
                 <h2>A sua privacidade é importante para nós</h2>
